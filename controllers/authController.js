@@ -7,12 +7,16 @@ const crypto = require('crypto')
 const cookieToken = require('../utils/cookieToken')
 
 
+exports.getSignup = catchAsync(async (req, res, next) => {
+    res.render('auth/sign_up')
+})
+
 exports.signup = catchAsync(async (req, res, next) => {
 
     const {name, email, password, course, registerNo, sem} = req.body
 
     if(!email || !name || !password || !course || !registerNo || !sem) {
-        return next(AppError("Name, email, course, registerNo and sem and password are required", 400))
+        return next(new AppError("Name, email, course, registerNo and sem and password are required", 400))
     }
 
     const userExist = await User.findOne({email})
@@ -35,7 +39,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
     if(req.files.idCard) {
         // Tell the front end dev to send the file with photo name attribute
-        let idCardFile = req.files.profilePicture
+        let idCardFile = req.files.idCard
         uploadedIDCard = await cloudinary.v2.uploader.upload(idCardFile.tempFilePath,{
             folder: "web_academia/users/idCards"
         })
@@ -63,6 +67,10 @@ exports.signup = catchAsync(async (req, res, next) => {
     cookieToken(user, res)
 })
 
+exports.getLogin = catchAsync(async (req, res, next) => {
+    res.render('auth/login')
+})
+
 exports.login = catchAsync(async (req, res, next) => {
     const {email, password} = req.body
     if(!email || !password) {
@@ -79,7 +87,6 @@ exports.login = catchAsync(async (req, res, next) => {
     if(!isPasswordCorrect) {
         return next(new AppError("Invalid email or password", 400))
     }
-
     // everything is alright, user is loggedin. Send the token...
     cookieToken(user, res)
 

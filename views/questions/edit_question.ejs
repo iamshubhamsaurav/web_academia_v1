@@ -131,33 +131,32 @@
 				<div class="row">
 					<div class="col-lg-7">
 						<div class="middull-content">
-							<form class="your-answer-form" method="post" action="/api/v1/questions" enctype="multipart/form-data">
+							<form class="your-answer-form" method="post" action="/api/v1/questions/<%= question._id %>/edit" enctype="multipart/form-data">
 								<div class="form-group">
-									<h3>Ask Your Question</h3>
+									<h3>Edit Your Question</h3>
 								</div>
 								<div class="form-group">
 									<label>Title</label>
-									<input type="text" name="title" class="form-control" required>
+									<input type="text" name="title" class="form-control" value="<%= question.title %>" required>
 								</div>
 								<div class="form-group">
 									<label>Branch</label>
 
 									<select name="branch" class="form-select form-control" aria-label="Default select example" required>
-										<option selected>Select Branch</option>
-										<option value="dca">DCA</option>
-										<option value="commerce">Commerce</option>
-										<option value="literature">Literature</option>
-										<option value="science">Science</option>
-										<option value="Others">Others</option>
+										<option value="dca" <%= question.branch == 'dca' ? 'selected' : ''%> >DCA</option>
+										<option value="commerce" <%= question.branch == 'commerce' ? 'selected' : ''%> >Commerce</option>
+										<option value="literature" <%= question.branch == 'literature' ? 'selected' : ''%> >Literature</option>
+										<option value="science" <%= question.branch == 'science' ? 'selected' : ''%> >Science</option>
+										<option value="others" <%= question.branch == 'others' ? 'selected' : ''%> >Others</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label>Subject</label>
-									<input type="text" name="subject" class="form-control" required>
+									<input type="text" name="subject" class="form-control" value="<%= question.subject %>" required>
 								</div>
 								<div class="form-group">
-									<label>Body</label><br/>
-									<textarea  class="form-control" rows="5" name="description" required></textarea><br>
+									<label>Description</label><br/>
+									<textarea  class="form-control" rows="5" name ="description" required><%= question.description %></textarea><br>
 									<!-- <div id="txtEditor"></div> -->
 								</div>
 								<div class="form-group">
@@ -171,7 +170,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<button type="submit" class="default-btn">Post Question</button>
+									<button type="submit" class="default-btn">Save Question</button>
 								</div>
 							</form>
 						</div>

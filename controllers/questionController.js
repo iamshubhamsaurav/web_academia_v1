@@ -64,10 +64,21 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
     }
     
     const question = await Question.create(req.body)
-    res.status(200).json({
-        success: true,
-        question
-    })
+    // res.status(200).json({
+    //     success: true,
+    //     question
+    // })
+    res.redirect('/api/v1/')
+})
+
+exports.getEditQuestion = catchAsync(async (req, res, next) => {
+    const question = await Question.findById(req.params.id)
+
+    if(!question) {
+        return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
+    }
+
+    res.render('questions/edit_question', {question})
 })
 
 // @route       : PATCH /api/v1/questions/:id
@@ -80,7 +91,7 @@ exports.updateQuestion = catchAsync(async (req, res, next) => {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
     }
 
-    if(req.files.coverImage) {
+    if(req.files != null) {
         let file = req.files.coverImage
         
         // first delete the existing image
@@ -103,10 +114,11 @@ exports.updateQuestion = catchAsync(async (req, res, next) => {
         runValidators: true
     })
     
-    res.status(200).json({
-        success: true,
-        question: updatedQuestion
-    })
+    // res.status(200).json({
+    //     success: true,
+    //     question: updatedQuestion
+    // })
+    res.redirect(`/api/v1/questions/${question._id}`)
 })
 
 
@@ -142,9 +154,10 @@ exports.deleteQuestion = catchAsync(async (req, res, next) => {
 
     // console.log('FOUND' + question)
     await Question.deleteOne({_id: question._id})
-    res.status(200).json({
-        success: true,
-        message: 'Question and all the answers belonging to this question has been deleted.'
-    })
+    // res.status(200).json({
+    //     success: true,
+    //     message: 'Question and all the answers belonging to this question has been deleted.'
+    // })
+    res.redirect('/api/v1/')
 })
 

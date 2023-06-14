@@ -10,21 +10,27 @@ const {
     createQuestion,
     updateQuestion,
     deleteQuestion,
-    getCreateQuestion
+    getCreateQuestion,
+    getEditQuestion
 } = require('../controllers/questionController')
 
 // Routing to Answer
 router.use('/:questionId/answers', answerRouter)
 
-router.route('/')
-    .get(getAllQuestions)
-    .post(createQuestion)
 
+// Create Question
+router.post('/', createQuestion)
 router.get('/add', getCreateQuestion)
 
-router.route('/:id')
-    .get(getSingleQuestion)
-    .patch(updateQuestion)
-    .delete(deleteQuestion)
+// Get Question
+router.get('/', getAllQuestions)
+router.get('/:id', getSingleQuestion)
+
+// Edit
+router.get('/:id/edit', getEditQuestion)
+router.post('/:id/edit', updateQuestion)
+
+// Delete 
+router.get('/:id/delete', deleteQuestion)
 
 module.exports = router

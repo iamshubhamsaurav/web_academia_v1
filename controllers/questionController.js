@@ -30,10 +30,18 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
     }
 
-    res.status(200).json({
-        success: true,
-        question
-    })
+    // res.status(200).json({
+    //     success: true,
+    //     question
+    // })
+
+    console.log(question)
+
+    res.render('questions/question_details', {question})
+})
+
+exports.getCreateQuestion = catchAsync(async (req, res, next) => {
+    res.render('questions/add_question')
 })
 
 // @route       : POST /api/v1/questions
@@ -41,7 +49,7 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
 // @access      : Private
 exports.createQuestion = catchAsync(async (req, res, next) => {
     // uploading the image
-    if(req.files.coverImage) {
+    if(req.files != null) {
         let file = req.files.coverImage
         if(file) {
             let res = await cloudinary.uploader.upload(file.tempFilePath, {

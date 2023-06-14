@@ -58,7 +58,7 @@ exports.createAnswer = catchAsync(async (req, res, next) => {
     req.body.question = req.params.questionId
 
         // uploading the image
-        if(req.files.coverImage) {
+        if(req.files != null) {
             let file = req.files.coverImage
             if(file) {
                 let res = await cloudinary.uploader.upload(file.tempFilePath, {
@@ -73,10 +73,12 @@ exports.createAnswer = catchAsync(async (req, res, next) => {
         }
 
     const answer = await Answer.create(req.body)
-    res.status(200).json({
-        success: true,
-        answer
-    })
+
+    res.redirect(`/api/v1/questions/${answer.question}/`)
+    // res.status(200).json({
+    //     success: true,
+    //     answer
+    // })
 })
 
 // @route       : PATCH /api/v1/answers/:id

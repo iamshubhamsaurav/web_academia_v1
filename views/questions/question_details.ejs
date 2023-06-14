@@ -121,60 +121,180 @@
 		</div>
 		<!-- End Navbar Area -->
 
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5 my-5">
+					<div class="right-siderbar-common">
+						<a href="#" class="default-btn">
+							Edit this question
+						</a>
+					</div>
+				</div>
+
+				<div class="col-lg-5 my-5">
+					<div class="right-siderbar-common">
+						<a href="#" class="default-btn">
+							Delete this question
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Start Mail Content Area -->
 		<div class="main-content-area ptb-100">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-7">
+					<div class="col-lg-8">
 						<div class="middull-content">
-							<form class="your-answer-form" method="post" action="/api/v1/articles/<%= article._id %>/edit" enctype="multipart/form-data">
-								
-								<div class="form-group">
-									<h3>Update Your Article</h3>
-								</div>
-								<div class="form-group">
-									<label>Title</label>
-									<input type="text" name="title" class="form-control" value="<%= article.title %>" required>
-								</div>
-								<div class="form-group">
-									<label>Branch</label>
+							<ul class="page-nish">
+								<li>
+									<a href="index.html">
+										<i class="ri-home-8-line"></i>
+										Home
+									</a>
+								</li>
+								<li>
+									Question
+								</li>
+								<li class="active">
+									Question Details
+								</li>
+							</ul>
 
-									<select name="branch" class="form-select form-control" aria-label="Default select example" required>
-										<option value="dca" <%= article.branch == 'dca' ? 'selected' : ''%> >DCA</option>
-										<option value="commerce" <%= article.branch == 'commerce' ? 'selected' : ''%> >Commerce</option>
-										<option value="literature" <%= article.branch == 'literature' ? 'selected' : ''%> >Literature</option>
-										<option value="science" <%= article.branch == 'science' ? 'selected' : ''%> >Science</option>
-										<option value="others" <%= article.branch == 'others' ? 'selected' : ''%> >Others</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label>Subject</label>
-									<input type="text" name="subject" class="form-control" value="<%= article.subject %>" required>
-								</div>
-								<div class="form-group">
-									<label>Body</label><br/>
-									<textarea  class="form-control" rows = "10"  name = "body" required><%= article.body %></textarea><br>
-									<!-- <div id="txtEditor"></div> -->
-								</div>
-								<div class="form-group">
-									<div class="file-upload-account-info">
-										<!-- <input type="file" name="coverImage" id="file-2" class="inputfile"> -->
-										<input type="file" name="coverImage" class="form-control" id="coverImage" required>
-										<label class="upload">
-											<i class="ri-link"></i>
-											Upload New Cover Image
-										</label>
+							<div class="question-details-area">
+								<div class="question-details-content like-dislike">
+									<div class="d-flex">
+										<div class="link-unlike flex-shrink-0">
+											<a href="#">
+												<img src="/assets/images/user/user-1.jpg" alt="Image">
+											</a>
+										</div>
+
+										<div class="flex-grow-1 ms-3">
+											<ul class="graphic-design">
+												<li>
+													<a href="#">User Name</a>
+												</li>
+												<li>
+													<% if(question.answers.length > 0) { %>
+														<span>Latest Answer: <%= new Date(question.answers.slice(-1)[0].createdAt.toISOString()).toLocaleDateString() %></span>
+													<% } %>
+												</li>
+												<li>
+													<span>In:</span>
+													<a href="#" class="graphic">
+														<%= question.branch %>
+													</a>
+												</li>
+											</ul>
+
+											<h3>
+												<!-- <a href="queations-details.html">
+													If you open Illustrator by dragging the Photoshop file, why it becomes a JPG file
+												</a> -->
+												<%= question.title %>
+											</h3>
+
+											<% if(question.description != undefined) { %>
+												<%= question.description %>
+											<% } else { %>
+												<p>No Description Available.</p>
+											<% } %>
+											
+											<ul class="tag-list">
+												<li>
+													<a href="#"><%= question.subject %></a>
+												</li>
+												<li>
+											</ul>
+
+											<div class="d-flex justify-content-between align-items-center">
+												<ul class="anser-list">
+													<li>
+														<a href="#">
+															<%= question.answers.length %> Answers
+															<!-- <% if(question.answers.length > 0) { %>
+																<%= question.answers.length %> Answers
+															<% } else { %>
+																0 Answers
+															<% } %> -->
+														</a>
+													</li>
+												</ul>
+
+												<a href="#" class="default-btn">
+													Answer
+												</a>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="form-group">
-									<button type="submit" class="default-btn">Save</button>
-								</div>
-							</form>
+
+								<ul class="answerss d-flex justify-content-between align-items-center">
+									<li>
+										<h3><%= question.answers.length %> Answers</h3>
+									</li>
+									
+								</ul>
+								<% if(question.answers.length > 0) { %>
+								<% question.answers.reverse().forEach(ans => { %>
+									<div class="answer-question-details like-dislike">
+										<div class="d-flex">
+											<div class="link-unlike flex-shrink-0">
+												<a href="#">
+													<img src="/assets/images/user/user-13.jpg" alt="Image">
+												</a>
+											</div>
+	
+											<div class="flex-grow-1 ms-3">
+												<ul class="latest-answer-list">
+													<li>
+														<a href="#">Username</a>
+													</li>
+													<li>
+														<span>Posted on: <%= new Date(ans.createdAt).toLocaleDateString() %></span>
+													</li>
+													<!-- <li class="reports">
+														<a href="#" class="report">
+															<i class="ri-error-warning-line"></i>
+															Report
+														</a>
+													</li> -->
+												</ul>
+												<p><%= ans.text  %></p>
+											</div>
+										</div>
+									</div>
+								<% }) %>
+								
+								<% } %>
+
+								<form class="your-answer-form" method="post" action="/api/v1/questions/<%= question._id %>/answers/" enctype="multipart/form-data">
+									<div class="form-group">
+										<h3>Your Answer</h3>
+									</div>
+									<textarea class="form-control" name="text" rows="10" id="text" required></textarea><br/>
+									<div class="form-group">
+										<div class="file-upload-account-info">
+											<!-- <input type="file" name="coverImage" id="file-2" class="inputfile"> -->
+											<input type="file" name="coverImage" class="form-control" id="coverImage">
+											<label class="upload">
+												<i class="ri-link"></i>
+												Upload Image
+											</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="default-btn">Post Answer</button>
+									</div>
+									
+								</form>
+							</div>
 						</div>
 					</div>
 
-					<div class="col-lg-1">
-					</div>
+					<div class="col-lg-1"></div>
 
 					<div class="col-lg-3">
 						<div class="right-siderbar">
@@ -229,15 +349,30 @@
 									</h3>
 
 									<ul>
-										<% recentArticles.forEach(element => { %>
-											<li>
-											<a href="/api/v1/articles/<%= element._id %>">
-												<%= element.title %>
+										<li>
+											<a href="most-answered.html">
+												What could be UX design software?
 											</a>
-											<p>on <%= new Date(element.createdAt.toISOString()).toLocaleDateString() %>
-												by <a href="user.html">User Name</a></p>
+											<p>8 hours ago by <a href="user.html">Alan Woodson</a></p>
 										</li>
-										<% }) %>
+										<li>
+											<a href="most-answered.html">
+												All the new features that have been used in Windows 11
+											</a>
+											<p>11 hours ago by <a href="user.html">Juan McPhail</a></p>
+										</li>
+										<li>
+											<a href="most-answered.html">
+												What is the most important thing in learning design?
+											</a>
+											<p>11 hours ago by <a href="user.html">Vickie White</a></p>
+										</li>
+										<li>
+											<a href="most-answered.html">
+												Which language is the most popular in the web right now?
+											</a>
+											<p>13 hours ago by <a href="user.html">Jose Merz</a></p>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -350,7 +485,6 @@
 		</div>
 		<!-- End Footer Area -->
 
-
 		<!-- Start Go Top Area -->
 		<div class="go-top">
 			<i class="ri-arrow-up-s-fill"></i>
@@ -361,14 +495,10 @@
         <!-- Links of JS File -->
         <script src="/assets/js/jquery.min.js"></script>
         <script src="/assets/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/js/meanmenu.min.js"></script>
-		<script src="/assets/js/owl.carousel.min.js"></script>
 		<script src="/assets/js/form-validator.min.js"></script>
 		<script src="/assets/js/contact-form-script.js"></script>
 		<script src="/assets/js/ajaxchimp.min.js"></script>
-		<script src="/assets/js/metismenu.js"></script>
 		<script src="/assets/js/editor.js"></script>
-		<script src="/assets/js/like-dislike.min.js"></script>
 		<script src="/assets/js/custom.js"></script>
     </body>
 </html>

@@ -160,7 +160,7 @@
 							<div class="tab-content" id="myTabContent">
 								<div class="tab-pane fade show active" id="recent-questions" role="tabpanel" aria-labelledby="recent-questions-tab">
 									
-									<% questions.forEach(question => { %>
+									<% questions.reverse().forEach(question => { %>
 										<div class="single-qa-box like-dislike">
 											<div class="d-flex">
 												<div class="link-unlike flex-shrink-0">
@@ -175,7 +175,9 @@
 															<a href="#">User Name</a>
 														</li>
 														<li>
+															<% if(question.answers.length > 0) { %>
 															<span>Latest Answer: <%= new Date(question.answers.slice(-1)[0].createdAt.toISOString()).toLocaleDateString() %></span>
+															<% } %>
 														</li>
 														<li>
 															<span>In:</span>
@@ -558,14 +560,14 @@
 					<div class="col-lg-3">
 						<div class="right-siderbar">
 							<div class="right-siderbar-common">
-								<a href="#" class="default-btn">
+								<a href="/api/v1/questions/add" class="default-btn">
 									Ask a question
 								</a>
 							</div>
 
 							<div class="right-siderbar-common">
-								<a href="publish-blogpost.html" class="default-btn">
-									Publish a blog post
+								<a href="/api/v1/articles/add" class="default-btn">
+									Publish an article
 								</a>
 							</div>
 

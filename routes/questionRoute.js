@@ -9,7 +9,8 @@ const {
     getSingleQuestion,
     createQuestion,
     updateQuestion,
-    deleteQuestion
+    deleteQuestion,
+    getCreateQuestion
 } = require('../controllers/questionController')
 
 // Routing to Answer
@@ -18,6 +19,8 @@ router.use('/:questionId/answers', answerRouter)
 router.route('/')
     .get(getAllQuestions)
     .post(createQuestion)
+
+router.get('/add', getCreateQuestion)
 
 router.route('/:id')
     .get(getSingleQuestion)

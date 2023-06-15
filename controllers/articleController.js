@@ -51,7 +51,7 @@ exports.createArticle = catchAsync(async (req, res, next) => {
 
     console.log(req.body)
     // uploading the image
-    if(req.files.coverImage) {
+    if(req.files != null) {
         let file = req.files.coverImage
         if(file) {
             let res = await cloudinary.uploader.upload(file.tempFilePath, {
@@ -94,7 +94,7 @@ exports.updateArticle = catchAsync(async (req, res, next) => {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))
     }
 
-    if(req.files.coverImage != null) {
+    if(req.files != null) {
         let file = req.files.coverImage
         
         // first delete the existing image

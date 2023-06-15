@@ -54,10 +54,11 @@ app.use('/api/v1/', homeRouter)
 
 
 app.all('*', (req, res, next) => {
-    console.log('404')
-    return next(
-      new AppError(`Resource ${req.originalUrl} not found on the server`, 404)
-    );
+    // console.log('404')
+    // return next(
+    //   new AppError(`Resource ${req.originalUrl} not found on the server`, 404)
+    // );
+    res.render('errors/404')
 });
   
 app.use(errorHandler);

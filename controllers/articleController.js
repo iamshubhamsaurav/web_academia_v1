@@ -112,7 +112,7 @@ exports.updateArticle = catchAsync(async (req, res, next) => {
         }
     }
 
-    req.body.coverImage = article.coverImage
+    // req.body.coverImage = article.coverImage
 
     const updatedArticle = await Article.findByIdAndUpdate(article._id, req.body, {
         new: true,

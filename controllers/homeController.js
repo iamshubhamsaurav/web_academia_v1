@@ -25,3 +25,14 @@ exports.getContact = catchAsync(async (req, res, next) => {
     res.render('home/contact')
 })
 
+exports.getFAQ = catchAsync(async (req, res, next) => {
+    res.render('home/faq')
+})
+
+exports.getPrivacyPolicy = catchAsync(async (req, res, next) => {
+    res.render('home/privacy_policy')
+})
+
+exports.getTermsAndConditions = catchAsync(async (req, res, next) => {
+    res.render('home/terms_conditions')
+})

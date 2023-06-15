@@ -1,5 +1,7 @@
 const catchAsync = require("../utils/catchAsync")
 const Question = require('../models/Question')
+const Article = require("../models/Article")
+
 
 exports.getHome = catchAsync(async (req, res, next) => {
     const questions = await Question.find().populate({
@@ -9,7 +11,8 @@ exports.getHome = catchAsync(async (req, res, next) => {
     // questions.forEach(question => {
     //     console.log(new Date(question.answers.slice(-1)[0].createdAt).getHours())
     // });
-    res.render('home/index', {questions})
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    res.render('home/index', {questions, recentArticles})
 })
 
 

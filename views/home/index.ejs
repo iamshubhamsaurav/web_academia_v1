@@ -606,34 +606,21 @@
 								<div class="recent-post">
 									<h3>
 										<i class="ri-discuss-line"></i>
-										Recent post
+										Recent Articles
 									</h3>
 
 									<ul>
-										<li>
-											<a href="most-answered.html">
-												What could be UX design software?
+										<% recentArticles.forEach(element => { %>
+											<li>
+											<a href="/api/v1/articles/<%= element._id %>">
+												<%= element.title %>
 											</a>
-											<p>8 hours ago by <a href="user.html">Alan Woodson</a></p>
+											<p>on <%= new Date(element.createdAt.toISOString()).toLocaleDateString() %>
+												by <a href="user.html">User Name</a></p>
 										</li>
-										<li>
-											<a href="most-answered.html">
-												All the new features that have been used in Windows 11
-											</a>
-											<p>11 hours ago by <a href="user.html">Juan McPhail</a></p>
-										</li>
-										<li>
-											<a href="most-answered.html">
-												What is the most important thing in learning design?
-											</a>
-											<p>11 hours ago by <a href="user.html">Vickie White</a></p>
-										</li>
-										<li>
-											<a href="most-answered.html">
-												Which language is the most popular in the web right now?
-											</a>
-											<p>13 hours ago by <a href="user.html">Jose Merz</a></p>
-										</li>
+										<% }) %>
+										
+										
 									</ul>
 								</div>
 							</div>

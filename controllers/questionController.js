@@ -2,6 +2,7 @@ const Question = require('../models/Question')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const Answer = require('../models/Answer')
+const Article = require('../models/Article')
 const cloudinary = require('cloudinary').v2
 
 // @route       : GET /api/v1/questions
@@ -36,12 +37,14 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
     // })
 
     console.log(question)
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
 
-    res.render('questions/question_details', {question})
+    res.render('questions/question_details', {question, recentArticles})
 })
 
 exports.getCreateQuestion = catchAsync(async (req, res, next) => {
-    res.render('questions/add_question')
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    res.render('questions/add_question', {recentArticles})
 })
 
 // @route       : POST /api/v1/questions
@@ -77,8 +80,9 @@ exports.getEditQuestion = catchAsync(async (req, res, next) => {
     if(!question) {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
     }
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
 
-    res.render('questions/edit_question', {question})
+    res.render('questions/edit_question', {question, recentArticles})
 })
 
 // @route       : PATCH /api/v1/questions/:id

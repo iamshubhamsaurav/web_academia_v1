@@ -136,8 +136,8 @@
 							<ul>
 								<li>
 									<a href="#" class="user-id">
-										<img src="/assets/images/blog/user-1.jpg" alt="Image">
-										<span>User Name</span>
+										<img src="<%= article.user.profilePicture.secure_url %>" alt="Image" height="40" width="40">
+										<span><%= article.user.name %></span>
 									</a>
 								</li>
 								<li>
@@ -151,25 +151,28 @@
 		</div>
 		<!-- End Page title Area -->
 
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-5 my-5">
-					<div class="right-siderbar-common">
-						<a href="/api/v1/articles/<%= article._id %>/edit" class="default-btn">
-							Edit this post
-						</a>
+		<% if(user._id.toString() === article.user._id.toString()) { %>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 my-5">
+						<div class="right-siderbar-common">
+							<a href="/api/v1/articles/<%= article._id %>/edit" class="default-btn">
+								Edit this post
+							</a>
+						</div>
 					</div>
-				</div>
-
-				<div class="col-lg-5 my-5">
-					<div class="right-siderbar-common">
-						<a href="/api/v1/articles/<%= article._id %>/delete" class="default-btn">
-							Delete this post
-						</a>
+	
+					<div class="col-lg-5 my-5">
+						<div class="right-siderbar-common">
+							<a href="/api/v1/articles/<%= article._id %>/delete" class="default-btn">
+								Delete this post
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		<% } %>
+		
 
 		<!-- Start Blog Details Area -->
 		<div class="blog-details-area ptb-100">

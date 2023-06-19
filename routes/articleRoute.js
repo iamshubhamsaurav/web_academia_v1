@@ -9,20 +9,21 @@ const {
     getCreateArticle,
     getEditArticle
 } = require('../controllers/articleController')
+const { isLoggedIn, checkUserLoggedInStatus } = require('../middlewares/user')
 
 const router = express.Router()
 
 router.route('/')
-    .get(getAllArticles)
-    .post(createArticle)
+    .get(checkUserLoggedInStatus, getAllArticles)
+    .post(isLoggedIn, createArticle)
 
-router.get('/add', getCreateArticle)
-router.get('/:id/edit', getEditArticle)
-router.post('/:id/edit', updateArticle)
-router.get('/:id/delete', deleteArticle)
+router.get('/add', isLoggedIn, getCreateArticle)
+router.get('/:id/edit', isLoggedIn, getEditArticle)
+router.post('/:id/edit',isLoggedIn, updateArticle)
+router.get('/:id/delete',isLoggedIn, deleteArticle)
 
 router.route('/:id')
-    .get(getSingleArticle)
+    .get(checkUserLoggedInStatus, getSingleArticle)
     
 
 module.exports = router

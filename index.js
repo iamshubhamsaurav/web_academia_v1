@@ -9,6 +9,7 @@ const cloudinary = require('cloudinary').v2
 const fileUpload = require('express-fileupload')
 const path = require('path')
 const ejs = require('ejs')
+const cookieParser = require('cookie-parser')
 
 // Connecting with the database
 connectDB()
@@ -35,6 +36,7 @@ app.use(fileUpload({
 // middlewares
 app.use(morgan('dev'))
 app.use(express.json())
+app.use(cookieParser())
 
 //importing routers
 const articleRouter = require('./routes/articleRoute')

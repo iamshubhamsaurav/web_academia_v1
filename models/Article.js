@@ -28,6 +28,11 @@ const articleSchema = mongoose.Schema({
         public_id: String,
         secure_url: String
     },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+    },
     slug: String,
 }, {timestamps: true} )
 

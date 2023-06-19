@@ -18,8 +18,8 @@ function cookieToken(user, res) {
     //         token
     //     })
 
-    res.status(201)
-        .cookie('token', token, options)
+
+    res.cookie('token', token, options)
         .redirect('/api/v1/')
 }
 

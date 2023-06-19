@@ -33,6 +33,7 @@ exports.signup = catchAsync(async (req, res, next) => {
         uploadedProfilePicture = await cloudinary.v2.uploader.upload(profilePictureFile.tempFilePath,{
             folder: "web_academia/users/profilePictures",
             width: 150,
+            height: 150,
             crop: "scale"
         })
     }

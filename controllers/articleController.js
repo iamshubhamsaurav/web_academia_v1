@@ -7,7 +7,10 @@ const cloudinary = require('cloudinary').v2
 // @desc        : Get all Articles
 // @access      : Public
 exports.getAllArticles = catchAsync(async (req, res, next) => {
-    const articles = await Article.find().sort({ createdAt: -1 })
+    const articles = await Article.find().sort({ createdAt: -1 }).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
+    })
 
     // res.status(200).json({
     //     success: true,
@@ -23,7 +26,13 @@ exports.getAllArticles = catchAsync(async (req, res, next) => {
 // @desc        : Get Single article
 // @access      : Public
 exports.getSingleArticle = catchAsync(async (req, res, next) => {
-    const article = await Article.findById(req.params.id)
+    const article = await Article.findById(req.params.id).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
+    })
+
+    console.log(article.user);
+    console.log(req.user)
 
     if(!article) {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))
@@ -31,8 +40,7 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
 
     const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
     
-
-    res.render('articles_details', {article, recentArticles})
+    res.render('articles_details', {article, recentArticles, user: req.user})
 })
 
 // @route       : GET /api/v1/articles/add
@@ -48,8 +56,6 @@ exports.getCreateArticle = catchAsync(async (req, res, next) => {
 // @desc        : Create Article
 // @access      : Private
 exports.createArticle = catchAsync(async (req, res, next) => {
-
-    console.log(req.body)
     // uploading the image
     if(req.files != null) {
         let file = req.files.coverImage
@@ -64,6 +70,9 @@ exports.createArticle = catchAsync(async (req, res, next) => {
             
         }
     }
+
+    // Setting the user to the new article being created
+    req.body.user = req.user._id
     
     const article = await Article.create(req.body)
     res.redirect('/api/v1/articles');
@@ -89,6 +98,10 @@ exports.getEditArticle = catchAsync(async (req, res, next) => {
 exports.updateArticle = catchAsync(async (req, res, next) => {
 
     const article = await Article.findById(req.params.id)
+
+    if(req.user._id.toString() !== article.user.toString()) {
+        return next(new AppError('You are not authorized to perform this action', 400))
+    }
 
     if(!article) {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))
@@ -129,6 +142,10 @@ exports.updateArticle = catchAsync(async (req, res, next) => {
 // @access      : Private
 exports.deleteArticle = catchAsync(async (req, res, next) => {
     const article = await Article.findById(req.params.id)
+
+    if(req.user._id.toString() !== article.user.toString()) {
+        return next(new AppError('You are not authorized to perform this action', 400))
+    }
 
     if(!article) {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))

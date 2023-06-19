@@ -165,14 +165,14 @@
 											<div class="d-flex">
 												<div class="link-unlike flex-shrink-0">
 													<a href="#">
-														<img src="/assets/images/user/user-1.jpg" alt="Image">
+														<img src="<%= question.user.profilePicture.secure_url %>" alt="Image" height="50" width="50">
 													</a>
 												</div>
 	
 												<div class="flex-grow-1 ms-3">
 													<ul class="graphic-design">
 														<li>
-															<a href="#">User Name</a>
+															<a href="#"><%= question.user.name %></a>
 														</li>
 														<li>
 															<% if(question.answers.length > 0) { %>

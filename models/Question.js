@@ -24,6 +24,11 @@ const questionSchema = mongoose.Schema({
         secure_url: String
     },
     slug: String,
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+    },
 },
 {
     toJSON: {virtuals: true},

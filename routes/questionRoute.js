@@ -1,4 +1,5 @@
 const express = require('express')
+const { checkUserLoggedInStatus, isLoggedIn } = require('../middlewares/user')
 
 const router = express.Router()
 
@@ -19,18 +20,18 @@ router.use('/:questionId/answers', answerRouter)
 
 
 // Create Question
-router.post('/', createQuestion)
-router.get('/add', getCreateQuestion)
+router.post('/',isLoggedIn, createQuestion)
+router.get('/add',isLoggedIn, getCreateQuestion)
 
 // Get Question
-router.get('/', getAllQuestions)
-router.get('/:id', getSingleQuestion)
+router.get('/',checkUserLoggedInStatus, getAllQuestions)
+router.get('/:id',checkUserLoggedInStatus, getSingleQuestion)
 
 // Edit
-router.get('/:id/edit', getEditQuestion)
-router.post('/:id/edit', updateQuestion)
+router.get('/:id/edit',isLoggedIn, getEditQuestion)
+router.post('/:id/edit',isLoggedIn, updateQuestion)
 
 // Delete 
-router.get('/:id/delete', deleteQuestion)
+router.get('/:id/delete',isLoggedIn, deleteQuestion)
 
 module.exports = router

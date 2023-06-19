@@ -12,6 +12,9 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
     const questions = await Question.find().populate({
         path: 'answers',
         select: 'text _id'
+    }).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
     })
 
     res.status(200).json({
@@ -25,7 +28,10 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
 // @desc        : Get Single Question
 // @access      : Public
 exports.getSingleQuestion = catchAsync(async (req, res, next) => {
-    const question = await Question.findById(req.params.id).populate('answers')
+    const question = await Question.findById(req.params.id).populate('answers').populate({
+        path: 'user',
+        select: 'name _id profilePicture'
+    })
 
     if(!question) {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
@@ -36,10 +42,9 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
     //     question
     // })
 
-    console.log(question)
     const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
 
-    res.render('questions/question_details', {question, recentArticles})
+    res.render('questions/question_details', {question, recentArticles, user: req.user})
 })
 
 exports.getCreateQuestion = catchAsync(async (req, res, next) => {
@@ -65,6 +70,7 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
             
         }
     }
+    req.body.user = req.user._id
     
     const question = await Question.create(req.body)
     // res.status(200).json({
@@ -90,6 +96,10 @@ exports.getEditQuestion = catchAsync(async (req, res, next) => {
 // @access      : Private
 exports.updateQuestion = catchAsync(async (req, res, next) => {
     const question = await Question.findById(req.params.id)
+
+    if(req.user._id.toString() !== question.user.toString()) {
+        return next(new AppError('You are not authorized to perform this action', 400))
+    }
 
     if(!question) {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
@@ -132,6 +142,10 @@ exports.updateQuestion = catchAsync(async (req, res, next) => {
 // @access      : Private
 exports.deleteQuestion = catchAsync(async (req, res, next) => {
     const question = await Question.findById(req.params.id)
+
+    if(req.user._id.toString() !== question.user.toString()) {
+        return next(new AppError('You are not authorized to perform this action', 400))
+    }
 
     if(!question) {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))

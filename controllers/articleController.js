@@ -31,8 +31,6 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
         select: 'name _id profilePicture'
     })
 
-    console.log(article.user);
-    console.log(req.user)
 
     if(!article) {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))

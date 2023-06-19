@@ -7,6 +7,9 @@ exports.getHome = catchAsync(async (req, res, next) => {
     const questions = await Question.find().populate({
         path: 'answers',
         select: 'text _id createdAt'
+    }).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
     })
     // questions.forEach(question => {
     //     console.log(new Date(question.answers.slice(-1)[0].createdAt).getHours())

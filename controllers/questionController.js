@@ -43,7 +43,7 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
     // })
 
     const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
-
+    console.log(req.user);
     res.render('questions/question_details', {question, recentArticles, user: req.user})
 })
 

@@ -120,7 +120,7 @@
 			</div>
 		</div>
 		<!-- End Navbar Area -->
-		<% if(user._id.toString() === question.user._id.toString()) { %>
+		<% if(user !== undefined && user._id.toString() === question.user._id.toString()) { %>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-5 my-5">
@@ -271,26 +271,30 @@
 								
 								<% } %>
 
-								<form class="your-answer-form" method="post" action="/api/v1/questions/<%= question._id %>/answers/" enctype="multipart/form-data">
-									<div class="form-group">
-										<h3>Your Answer</h3>
-									</div>
-									<textarea class="form-control" name="text" rows="10" id="text" required></textarea><br/>
-									<div class="form-group">
-										<div class="file-upload-account-info">
-											<!-- <input type="file" name="coverImage" id="file-2" class="inputfile"> -->
-											<input type="file" name="coverImage" class="form-control" id="coverImage">
-											<label class="upload">
-												<i class="ri-link"></i>
-												Upload Image
-											</label>
+
+								<% if(user != undefined) {%>
+									<form class="your-answer-form" method="post" action="/api/v1/questions/<%= question._id %>/answers/" enctype="multipart/form-data">
+										<div class="form-group">
+											<h3>Your Answer</h3>
 										</div>
-									</div>
-									<div class="form-group">
-										<button type="submit" class="default-btn">Post Answer</button>
-									</div>
-									
-								</form>
+										<textarea class="form-control" name="text" rows="10" id="text" required></textarea><br/>
+										<div class="form-group">
+											<div class="file-upload-account-info">
+												<!-- <input type="file" name="coverImage" id="file-2" class="inputfile"> -->
+												<input type="file" name="coverImage" class="form-control" id="coverImage">
+												<label class="upload">
+													<i class="ri-link"></i>
+													Upload Image
+												</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="default-btn">Post Answer</button>
+										</div>
+										
+									</form>
+								<% } %>
+								
 							</div>
 						</div>
 					</div>

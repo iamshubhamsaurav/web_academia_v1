@@ -151,7 +151,7 @@
 		</div>
 		<!-- End Page title Area -->
 
-		<% if(user._id.toString() === article.user._id.toString()) { %>
+		<% if(user != undefined && user._id.toString() === article.user._id.toString()) { %>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-5 my-5">

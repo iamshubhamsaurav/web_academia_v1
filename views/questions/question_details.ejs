@@ -197,18 +197,24 @@
 												<%= question.title %>
 											</h3>
 
-											<% if(question.description != undefined) { %>
-												<%= question.description %>
-											<% } else { %>
-												<p>No Description Available.</p>
-											<% } %>
-											
+											<img src="<%= question.coverImage.secure_url %>" alt="Cover Image">
+											<p></p>
 											<ul class="tag-list">
 												<li>
 													<a href="#"><%= question.subject %></a>
 												</li>
 												<li>
 											</ul>
+
+											<% if(question.description != undefined) { %>
+												<%= question.description %>
+											<% } else { %>
+												<p>No Description Available.</p>
+											<% } %>
+											
+											
+											<hr style="background-color:#b3b3b3">
+													
 
 											<div class="d-flex justify-content-between align-items-center">
 												<ul class="anser-list">

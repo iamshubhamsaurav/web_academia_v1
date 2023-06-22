@@ -192,17 +192,20 @@
 															<%= question.title %>
 														</a>
 													</h3>
-													<% if(question.description) { %>
-														<p><%= question.description %></p>
-													<% } else { %>
-														<p>No Description Available.</p>
-													<% } %>
-	
+													<img src="<%= question.coverImage.secure_url %>" alt="Cover Image">
+													<p></p>
+
 													<ul class="tag-list">
 														<li>
 															Subject: <a href="#"><%= question.subject %></a>
 														</li>
 													</ul>
+													<% if(question.description) { %>
+														<p><%= question.description %></p>
+													<% } else { %>
+														<p>No Description Available.</p>
+													<% } %>
+													<hr style="background-color:#b3b3b3">
 	
 													<div class="d-flex justify-content-between align-items-center">
 														<ul class="anser-list">
@@ -616,7 +619,7 @@
 												<%= element.title %>
 											</a>
 											<p>on <%= new Date(element.createdAt.toISOString()).toLocaleDateString() %>
-												by <a href="user.html">User Name</a></p>
+												by <a href="#"><%=element.user.name%></a></p>
 										</li>
 										<% }) %>
 										

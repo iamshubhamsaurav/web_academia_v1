@@ -14,7 +14,10 @@ exports.getHome = catchAsync(async (req, res, next) => {
     // questions.forEach(question => {
     //     console.log(new Date(question.answers.slice(-1)[0].createdAt).getHours())
     // });
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
+    })
     res.render('home/index', {questions, recentArticles})
 })
 

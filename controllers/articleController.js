@@ -18,7 +18,7 @@ exports.getAllArticles = catchAsync(async (req, res, next) => {
     //     articles
     // })
 
-    res.render('articles', {articles})
+    res.render('articles', {articles, user: req.user})
 })
 
 

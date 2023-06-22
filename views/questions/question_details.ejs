@@ -366,7 +366,7 @@
 												<%= element.title %>
 											</a>
 											<p>on <%= new Date(element.createdAt.toISOString()).toLocaleDateString() %>
-												by <a href="user.html">User Name</a></p>
+												by <a href="#"><%= element.user.name %></a></p>
 										</li>
 										<% }) %>
 										

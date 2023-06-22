@@ -42,13 +42,19 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
     //     question
     // })
 
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
-    console.log(req.user);
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
+        path: 'user',
+        select: 'name _id'
+    })
+    // console.log(req.user);
     res.render('questions/question_details', {question, recentArticles, user: req.user})
 })
 
 exports.getCreateQuestion = catchAsync(async (req, res, next) => {
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
+        path: 'user',
+        select: 'name _id'
+    })
     res.render('questions/add_question', {recentArticles})
 })
 
@@ -86,7 +92,10 @@ exports.getEditQuestion = catchAsync(async (req, res, next) => {
     if(!question) {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
     }
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
+    })
 
     res.render('questions/edit_question', {question, recentArticles})
 })

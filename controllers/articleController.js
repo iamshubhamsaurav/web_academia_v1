@@ -36,7 +36,10 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))
     }
 
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
+        path: 'user',
+        select: 'name _id'
+    })
     
     res.render('articles_details', {article, recentArticles, user: req.user})
 })
@@ -45,7 +48,10 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
 // @desc        : Get Show Create Article Form
 // @access      : Private
 exports.getCreateArticle = catchAsync(async (req, res, next) => {
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
+        path: 'user',
+        select: 'name _id'
+    })
     
     res.render('publish_article', {recentArticles})
 })
@@ -85,7 +91,10 @@ exports.createArticle = catchAsync(async (req, res, next) => {
 // @desc        : Get Edit Article Form
 // @access      : Private
 exports.getEditArticle = catchAsync(async (req, res, next) => {
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5)
+    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
+        path: 'user',
+        select: 'name _id'
+    })
     const article = await Article.findById(req.params.id)
     res.render('edit_article', {article, recentArticles})
 })

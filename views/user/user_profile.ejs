@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="zxx">
+    <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Links Of CSS File -->
+		<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="/assets/css/flaticon.css">
+		<link rel="stylesheet" href="/assets/css/remixicon.css">
+		<link rel="stylesheet" href="/assets/css/meanmenu.min.css">
+		<link rel="stylesheet" href="/assets/css/animate.min.css">
+		<link rel="stylesheet" href="/assets/css/metismenu.min.css">
+		<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/assets/css/editor.css">
+		<link rel="stylesheet" href="/assets/css/style.css">
+		<link rel="stylesheet" href="/assets/css/responsive.css">
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/assets/images/favicon.png">
+		<!-- Title -->
+		<title>The Web Academia</title>
+    </head>
+
+    <body>
+		<!-- Start Preloader Area -->
+		<div class="preloader" id="loader-style">
+			<div class="preloader-wrap">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<!-- End Preloader Area -->
+		
+		<!-- Start Navbar Area --> 
+		<div class="navbar-area">
+			<div class="mobile-responsive-nav">
+				<div class="container">
+					<div class="mobile-responsive-menu">
+						<div class="logo">
+							<a href="index.html">
+								<img src="/assets/images/logo.png" alt="logo">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="desktop-nav">
+				<div class="container">
+					<nav class="navbar navbar-expand-md navbar-light">
+						<a class="navbar-brand" href="index.html">
+							<img src="/assets/images/logo.png" alt="logo">
+						</a>
+
+						<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+							<ul class="navbar-nav m-auto">
+								<li class="nav-item">
+									<a href="index.html" class="nav-link active">
+										Home 
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="about.html" class="nav-link">
+										About Us
+									</a>
+								</li>
+
+								<li class="nav-item">
+									<a href="blog.html" class="nav-link">
+										Blog            
+									</a>
+								</li>
+
+								<li class="nav-item">
+									<a href="contact-us.html" class="nav-link">Contact Us</a>
+								</li>
+
+							</ul>
+
+							<div class="others-options">
+								<ul>
+									<li>
+										<a href="login.html" class="active">
+											Log in	
+										</a>
+									</li>
+
+									<li>
+										<div class="dropdown">
+											<button type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+												<img src="/assets/images/user/user-48.jpg" alt="Image">
+												<span>Rosemary</span>
+											</button>
+											<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+												<li>
+													<a href="user-profile.html">
+														<i class="ri-user-line"></i>
+														User profile
+													</a>
+												</li>
+												<li>
+													<a href="edit-profile.html">
+														<i class="ri-settings-2-line"></i>
+														Edit Profile
+													</a>
+												</li>
+												<li>
+													<a href="index.html">
+														<i class="ri-logout-box-r-line"></i>
+														Log out
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+
+			<div class="others-option-for-responsive">
+				<div class="container">
+					<div class="dot-menu">
+						<div class="inner">
+							<div class="circle circle-one"></div>
+							<div class="circle circle-two"></div>
+							<div class="circle circle-three"></div>
+						</div>
+					</div>
+					
+					<div class="container">
+						<div class="option-inner">
+							<div class="others-options justify-content-center d-flex align-items-center">
+								<ul>
+									<li>
+										<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal-3" class="active">
+											Log in	
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Navbar Area -->
+
+		<!-- Start Mail Content Area -->
+		<div class="main-content-area ptb-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="user-profile-area">
+							<div class="profile-content d-flex justify-content-center align-items-center">
+								<div class="profile-img">
+									<img src="<%= user.profilePicture.secure_url %>" alt="Image" height="200" width="200">
+									<div>
+										<h3><%= user.name %></h3>
+										<span>Member since  <%= new Date(user.createdAt.toISOString()).toLocaleDateString() %></span>
+										<br>
+										<div class="edit-btn">
+											<a href="/api/v1/user/<%= user._id %>/edit" class="default-btn">Edit profile</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="about my-5" align="center">
+								<h3>About</h3>
+								Register No: <%= user.registerNo %><br>
+								Semester: <%= user.sem %><br>
+								Course: <%= user.course %></p>
+							</div>
+
+							<div class="top-posts">
+								<div class="tab-content my-5" id="myTabContent">
+									<h3>Your Articles</h3>
+									<div class="tab-pane fade show active" id="view-all" role="tabpanel" aria-labelledby="view-all-tab">
+										<ul>
+											<% articles.forEach(article => { %>
+												<li class="d-flex justify-content-between">
+													<div class="top-posts-list">
+														<i class="ri-chat-2-fill"></i>
+														<span class="count">2</span>
+														<button class="py-2 px-3">
+															<a href="/api/v1/articles/<%= article._id %>/edit">Edit</a>
+														</button>
+														<button class="py-2 px-3">
+															<a href="/api/v1/articles/<%= article._id %>/delete">Delete</a>
+														</button>
+														<span><%= article.title %></span>
+													</div>
+													<p><span>Posted on <%= new Date(article.createdAt.toISOString()).toLocaleDateString() %></span></p>
+												</li>
+											<% }) %>
+											
+											
+										</ul>
+									</div>
+								</div>
+
+								<div class="tab-content my-5" id="myTabContent">
+									<h3>Your Questions</h3>
+									<div class="tab-pane fade show active" id="view-all" role="tabpanel" aria-labelledby="view-all-tab">
+										<ul>
+											<% questions.forEach(question => { %>
+												<li class="d-flex justify-content-between">
+													<div class="top-posts-list">
+														<i class="ri-chat-2-fill"></i>
+														<span class="count">2</span>
+														<button class="py-2 px-3">
+															<a href="/api/v1/questions/<%= question._id %>/edit">Edit</a>
+														</button>
+														<button class="py-2 px-3">
+															<a href="/api/v1/questions/<%= question._id %>/delete">Delete</a>
+														</button>
+														<span><%= question.title %></span>
+													</div>
+													<p><span>Posted on <%= new Date(question.createdAt.toISOString()).toLocaleDateString() %></span></p>
+												</li>
+											<% }) %>
+									</div>
+								</div>
+							
+
+								<div class="tab-content my-5" id="myTabContent">
+									<h3>Your Answers</h3>
+									<div class="tab-pane fade show active" id="view-all" role="tabpanel" aria-labelledby="view-all-tab">
+										<ul>
+											<% answers.forEach(answer => { %>
+												<li class="d-flex justify-content-between">
+													<div class="top-posts-list">
+														<i class="ri-chat-2-fill"></i>
+														<span class="count">2</span>
+														<button class="py-2 px-3">
+															<a href="/api/v1/answers/<%= answer._id %>/edit">Edit</a>
+														</button>
+														<button class="py-2 px-3">
+															<a href="/api/v1/answers/<%= answer._id %>/delete">Delete</a>
+														</button>
+														<span><%= answer.title.slice(0, 64) %></span>
+													</div>
+													<p><span>Posted on <%= new Date(answer.createdAt.toISOString()).toLocaleDateString() %></span></p>
+												</li>
+											<% }) %>
+										</ul>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Mail Content Area -->
+
+		<!-- Start Footer Area -->
+		<div class="footer-area pt-100 pb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-footer-widget style-two">
+							<a href="index.html">
+								<img src="/assets/images/logo.png" alt="Image">
+							</a>
+
+							<p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus suscipit tortor eget felis porttitor volutpat. Pellentesque in ipsum id orci porta dapibus.</p>
+						</div>
+					</div>
+
+					<div class="col-lg-2 col-sm-6">
+						<div class="single-footer-widget style-two ml-15">
+							<h3>Project</h3>
+
+							<ul class="import-link">
+								<li>
+									<a href="index.html">Home</a>
+								</li>
+								<li>
+									<a href="about.html">About Us</a>
+								</li>
+								<li>
+									<a href="contact-us.html">Contact Us</a>
+								</li>
+								<li>
+									<a href="blog.html">Blog</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-lg-2 col-sm-6">
+						<div class="single-footer-widget style-two">
+							<h3>Explore</h3>
+
+							<ul class="import-link">
+								<li>
+									<a href="#">Ask question</a>
+								</li>
+								<li>
+									<a href="#">FAQs</a>
+								</li>
+								<li>
+									<a href="#">Privacy policy</a>
+								</li>
+								<li>
+									<a href="#">Terms & Conditions</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-lg-2 col-sm-6">
+						<div class="single-footer-widget style-two">
+							<h3>Follow us</h3>
+
+							<ul class="import-link">
+								<li>
+									<a href="#" target="_blank">Facebook</a>
+								</li>
+								<li>
+									<a href="#" target="_blank">Instagram</a>
+								</li>
+								<li>
+									<a href="#" target="_blank">Linkedin</a>
+								</li>
+								<li>
+									<a href="#" target="_blank">Twitter</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-footer-widget style-two">
+							<h3>Contact Us</h3>
+
+							<ul class="address-link">
+								<li>
+									<span>Call:</span>
+									<a href="#">+91 7899877899</a>
+								</li>
+								<li>
+									<span>Email:</span>
+									<a href="mailto:thewebacademia@gmail.com">thewebacademia@gmail.com</a>
+								</li>
+								<li>
+									<span>Address:</span>
+									#33/2C & 2D, Kempapura Main Rd, Hebbal Kempapura, Bengaluru, Karnataka 560024
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Footer Area -->
+
+		<!-- Start Go Top Area -->
+		<div class="go-top">
+			<i class="ri-arrow-up-s-fill"></i>
+			<i class="ri-arrow-up-s-fill"></i>
+		</div>
+		<!-- End Go Top Area -->
+
+        <!-- Links of JS File -->
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.bundle.min.js"></script>
+		<script src="/assets/js/meanmenu.min.js"></script>
+		<script src="/assets/js/owl.carousel.min.js"></script>
+		<script src="/assets/js/form-validator.min.js"></script>
+		<script src="/assets/js/contact-form-script.js"></script>
+		<script src="/assets/js/ajaxchimp.min.js"></script>
+		<script src="/assets/js/metismenu.js"></script>
+		<script src="/assets/js/editor.js"></script>
+		<script src="/assets/js/like-dislike.min.js"></script>
+		<script src="/assets/js/custom.js"></script>
+    </body>
+</html>

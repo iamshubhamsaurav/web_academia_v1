@@ -39,20 +39,22 @@ app.use(express.json())
 app.use(cookieParser())
 
 //importing routers
+const homeRouter = require('./routes/homeRoute')
 const articleRouter = require('./routes/articleRoute')
 const questionRouter = require('./routes/questionRoute')
 const answerRouter = require('./routes/answerRoute')
 const authRouter = require('./routes/authRoute')
-const homeRouter = require('./routes/homeRoute')
+const userRouter = require('./routes/userRoute')
 
 //routers
+// Home routes
+app.use('/api/v1/', homeRouter)
+// Other routes
 app.use('/api/v1/articles', articleRouter)
 app.use('/api/v1/questions', questionRouter)
 app.use('/api/v1/answers', answerRouter)
 app.use('/api/v1/auth', authRouter)
-
-// Home routes
-app.use('/api/v1/', homeRouter)
+app.use('/api/v1/users', userRouter)
 
 
 app.all('*', (req, res, next) => {

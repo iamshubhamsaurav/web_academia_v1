@@ -6,21 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 		<!-- Links Of CSS File -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-		<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-		<link rel="stylesheet" href="assets/css/flaticon.css">
-		<link rel="stylesheet" href="assets/css/remixicon.css">
-		<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-		<link rel="stylesheet" href="assets/css/animate.min.css">
-		<link rel="stylesheet" href="assets/css/metismenu.min.css">
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-		<link rel="stylesheet" href="assets/css/editor.css">
-		<link rel="stylesheet" href="assets/css/style.css">
-		<link rel="stylesheet" href="assets/css/responsive.css">
+		<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="/assets/css/flaticon.css">
+		<link rel="stylesheet" href="/assets/css/remixicon.css">
+		<link rel="stylesheet" href="/assets/css/meanmenu.min.css">
+		<link rel="stylesheet" href="/assets/css/animate.min.css">
+		<link rel="stylesheet" href="/assets/css/metismenu.min.css">
+		<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/assets/css/editor.css">
+		<link rel="stylesheet" href="/assets/css/style.css">
+		<link rel="stylesheet" href="/assets/css/responsive.css">
 		
 		<!-- Favicon -->
-		<link rel="icon" type="image/png" href="assets/images/favicon.png">
+		<link rel="icon" type="image/png" href="/assets/images/favicon.png">
 		<!-- Title -->
 		<title>The Web Academia</title>
     </head>
@@ -44,7 +44,7 @@
 					<div class="mobile-responsive-menu">
 						<div class="logo">
 							<a href="index.html">
-								<img src="assets/images/logo.png" alt="logo">
+								<img src="/assets/images/logo.png" alt="logo">
 							</a>
 						</div>
 					</div>
@@ -55,7 +55,7 @@
 				<div class="container">
 					<nav class="navbar navbar-expand-md navbar-light">
 						<a class="navbar-brand" href="index.html">
-							<img src="assets/images/logo.png" alt="logo">
+							<img src="/assets/images/logo.png" alt="logo">
 						</a>
 
 						<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -94,7 +94,7 @@
 									<li>
 										<div class="dropdown">
 											<button type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-												<img src="assets/images/user/user-48.jpg" alt="Image">
+												<img src="/assets/images/user/user-48.jpg" alt="Image">
 												<span>Rosemary</span>
 											</button>
 											<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
@@ -163,14 +163,11 @@
 						<div class="edit-profile-area">
 							<div class="profile-content d-flex justify-content-center align-items-center">
 								<div class="profile-img">
-									<img src="assets/images/user/profile-img.jpg" alt="Image">
+									<img src="<%= user.profilePicture.secure_url %>" alt="Image">
 									<div>
-										<h3>Rosemary Hamm</h3>
-										<span>Member since 1 years ago</span>
-										<span>Last seen this week</span>
-										<div class="edit-btn">
-											<a href="edit-profile.html" class="default-btn">Edit profile</a>
-										</div>
+										<h3><%= user.name %></h3>
+										<span>Member since  <%= new Date(user.createdAt.toISOString()).toLocaleDateString() %></span>
+										
 									</div>
 								</div>
 							</div>
@@ -184,7 +181,7 @@
 											<h3>Public information</h3>
 
 											<div class="information d-flex align-items-center">
-												<img src="assets/images/user/profile-img.jpg" alt="Image">
+												<img src="/assets/images/user/profile-img.jpg" alt="Image">
 												
 												<div class="file-upload-account-info">
 													<input type="file" name="file" id="file-2" class="inputfile">
@@ -255,20 +252,20 @@
 										<div class="public-information">
 											<h3>Change password</h3>
 	
-											<form class="edeite-content">
+											<form class="edeite-content" method="post" action="/api/v1/auth/changePassword">
 												<div class="form-group">
 													<label>Current Password</label>
-													<input type="password" class="form-control" name="password" id="password">
+													<input type="password" class="form-control" name="oldPassword" id="password">
 												</div>
 	
 												<div class="form-group">
 													<label>New Password</label>
-													<input type="password" class="form-control" name="new-password" id="new-password">
+													<input type="password" class="form-control" name="password" id="new-password">
 												</div>
 	
 												<div class="form-group">
 													<label>New Password (again)</label>
-													<input type="password" class="form-control" name="new-password-again" id="new-password-again">
+													<input type="password" class="form-control" name="passwordConfirm" id="new-password-again">
 												</div>
 	
 												<div class="form-group mb-0">
@@ -294,7 +291,7 @@
 					<div class="col-lg-3 col-sm-6">
 						<div class="single-footer-widget style-two">
 							<a href="index.html">
-								<img src="assets/images/logo.png" alt="Image">
+								<img src="/assets/images/logo.png" alt="Image">
 							</a>
 
 							<p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus suscipit tortor eget felis porttitor volutpat. Pellentesque in ipsum id orci porta dapibus.</p>
@@ -397,16 +394,16 @@
 		<!-- End Go Top Area -->
 
         <!-- Links of JS File -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-		<script src="assets/js/meanmenu.min.js"></script>
-		<script src="assets/js/owl.carousel.min.js"></script>
-		<script src="assets/js/form-validator.min.js"></script>
-		<script src="assets/js/contact-form-script.js"></script>
-		<script src="assets/js/ajaxchimp.min.js"></script>
-		<script src="assets/js/metismenu.js"></script>
-		<script src="assets/js/editor.js"></script>
-		<script src="assets/js/like-dislike.min.js"></script>
-		<script src="assets/js/custom.js"></script>
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.bundle.min.js"></script>
+		<script src="/assets/js/meanmenu.min.js"></script>
+		<script src="/assets/js/owl.carousel.min.js"></script>
+		<script src="/assets/js/form-validator.min.js"></script>
+		<script src="/assets/js/contact-form-script.js"></script>
+		<script src="/assets/js/ajaxchimp.min.js"></script>
+		<script src="/assets/js/metismenu.js"></script>
+		<script src="/assets/js/editor.js"></script>
+		<script src="/assets/js/like-dislike.min.js"></script>
+		<script src="/assets/js/custom.js"></script>
     </body>
 </html>

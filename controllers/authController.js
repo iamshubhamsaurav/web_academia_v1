@@ -185,7 +185,7 @@ exports.getLoggedInUserDetails = catchAsync(async (req, res, next) => {
 
 // Updating user passsword
 exports.changePassword = catchAsync(async (req, res, next) => {
-    const userId = req.user.id
+    const userId = req.user._id
 
     const user = await User.findById(userId).select('+password')
 
@@ -196,7 +196,11 @@ exports.changePassword = catchAsync(async (req, res, next) => {
     // checking old password
     const isOldPasswordCorrect = await user.correctPassword(req.body.oldPassword)
     if(!isOldPasswordCorrect) {
-        return next("Old password is incorrect", 400)
+        return next(new AppError("Old password is incorrect", 400))
+    }
+
+    if(req.body.password !== req.body.passwordConfirm) {
+        return next(new AppError("Password and Confirm Password is not same", 400))
     }
 
     // changing the password
@@ -205,5 +209,5 @@ exports.changePassword = catchAsync(async (req, res, next) => {
     // saving the password
     await user.save()
     cookieToken(user, res)
-
+    res.redirect(`/api/v1/user/${user._id}`)
 })

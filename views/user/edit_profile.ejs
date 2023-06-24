@@ -180,70 +180,48 @@
 										<div class="public-information">
 											<h3>Public information</h3>
 
-											<div class="information d-flex align-items-center">
-												<img src="/assets/images/user/profile-img.jpg" alt="Image">
-												
-												<div class="file-upload-account-info">
-													<input type="file" name="file" id="file-2" class="inputfile">
-													<label class="upload">
-														<i class="ri-link"></i>
-														Upload Photo
-													</label>
-													<span>Maximum file size: 10 MB.</span>
+											<form class="edeite-content" method="post" action="/api/v1/auth/updateProfile" enctype="multipart/form-data">
+												<div class="information d-flex align-items-center">
+													<img src="<%= user.profilePicture.secure_url %>" alt="Image">
+													
+													<div class="file-upload-account-info">
+														<input type="file" name="profilePicture" id="profilePicture" class="form-control" required>
+														<label class="upload">
+															<i class="ri-link"></i>
+															Upload Photo
+														</label>
+														<span>Maximum file size: 10 MB.</span>
+													</div>
 												</div>
-											</div>
-
-											<form class="edeite-content">
 												<div class="form-group">
-													<label>Display name</label>
-													<input type="text" class="form-control" name="name" id="name">
-												</div>
-
-												<div class="form-group">
-													<label>Location</label>
-													<input type="text" class="form-control" name="location" id="location">
-												</div>
-												
-												<div class="form-group">
-													<label>About me</label>
-													<div id="txtEditor"></div>
+													<label>Name</label>
+													<input type="text" class="form-control" name="name" id="name" required>
 												</div>
 
 												<div class="form-group">
-													<h3>Social Profiles</h3>
+													<label>Email</label>
+													<input type="email" class="form-control" name="email" id="email" required>
 												</div>
 
-												<div class="row">
-													<div class="col-lg-6 col-mad-6">
-														<div class="form-group">
-															<label>Website link</label>
-															<input type="text" class="form-control" name="WebsiteLink" id="website-link">
-														</div>
-													</div>
-													<div class="col-lg-6 col-mad-6">
-														<div class="form-group">
-															<label>Twitter link</label>
-															<input type="text" class="form-control" name="twitter" id="twitter">
-														</div>
-													</div>
-													<div class="col-lg-6 col-mad-6">
-														<div class="form-group">
-															<label>Facebook link</label>
-															<input type="text" class="form-control" name="facebook" id="facebook">
-														</div>
-													</div>
-													<div class="col-lg-6 col-mad-6">
-														<div class="form-group">
-															<label>GitHub link</label>
-															<input type="text" class="form-control" name="github" id="github">
-														</div>
-													</div>
-													<div class="col-12">
-														<div class="form-group mb-0">
-															<button class="default-btn">Save change</button>
-														</div>
-													</div>
+												<div class="form-group">
+													<label>Register No</label>
+													<input type="text" class="form-control" name="registerNo" id="registerNo" required>
 												</div>
+
+												<div class="form-group">
+													<label>Course</label>
+													<input type="text" class="form-control" name="course" id="course" required>
+												</div>
+
+												<div class="form-group">
+													<label>Sem</label>
+													<input type="text" class="form-control" name="sem" id="sem" required>
+												</div>
+
+												<div class="form-group mb-0">
+													<button class="default-btn">Save change</button>
+												</div>
+													
 											</form>
 										</div>
 									</div>

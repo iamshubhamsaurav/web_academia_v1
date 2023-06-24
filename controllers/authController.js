@@ -208,6 +208,66 @@ exports.changePassword = catchAsync(async (req, res, next) => {
 
     // saving the password
     await user.save()
-    cookieToken(user, res)
-    res.redirect(`/api/v1/user/${user._id}`)
+    const token = user.getJwtToken()
+
+    const options = {
+        expires: new Date(
+            Date.now() + 3 * 24 * 60 * 60 * 100
+        ),
+        httpOnly: true
+    }
+    res.cookie('token', token, options)
+        .redirect(`/api/v1/users/${user._id}`)
+})
+
+// Update User Profile
+exports.updateProfile = catchAsync(async (req, res, next) => {
+    const userId = req.user._id
+
+    const {name, email, registerNo, sem, course} = req.body
+
+    const user = await User.findById(userId)
+
+    if(!user) {
+        return next(new AppError("User does not exist", 404))
+    }
+
+    if(!name && !registerNo && !email && !course && !sem) {
+        return next(new AppError("Fields are missing.", 400))
+    }
+
+    let uploadedProfilePicture;
+    if(req.files.profilePicture != null) {
+        if(user.profilePicture.public_id != undefined) {
+            await cloudinary.v2.uploader.destroy(user.profilePicture.public_id)
+        }
+        
+        // Tell the front end dev to send the file with photo name attribute
+        let profilePictureFile = req.files.profilePicture
+        uploadedProfilePicture = await cloudinary.v2.uploader.upload(profilePictureFile.tempFilePath,{
+            folder: "web_academia/users/profilePictures",
+            width: 150,
+            height: 150,
+            crop: "scale"
+        })
+    }
+    
+    let profilePicture = {
+        secure_url: uploadedProfilePicture.secure_url,
+        public_id: uploadedProfilePicture.public_id
+    }
+
+    const newUser = await User.findByIdAndUpdate(userId, {
+        name, email, registerNo, sem, course, profilePicture
+    })
+    const token = newUser.getJwtToken()
+
+    const options = {
+        expires: new Date(
+            Date.now() + 3 * 24 * 60 * 60 * 100
+        ),
+        httpOnly: true
+    }
+    res.cookie('token', token, options)
+        .redirect(`/api/v1/users/${newUser._id}`)
 })

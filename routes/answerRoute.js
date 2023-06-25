@@ -17,7 +17,8 @@ router.route('/')
 
 router.route('/:id')
     .get(checkUserLoggedInStatus, getSingleAnswer)
-    .patch(isLoggedIn, updateAnswer)
-    .delete(isLoggedIn, deleteAnswer)
+
+router.post('/:id/edit',isLoggedIn, updateAnswer)    
+router.get('/:id/delete',isLoggedIn, deleteAnswer)
 
 module.exports = router

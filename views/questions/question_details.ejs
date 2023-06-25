@@ -173,17 +173,19 @@
 											<div class="flex-grow-1 ms-3">
 												<ul class="latest-answer-list">
 													<li>
-														<a href="#">Username</a>
+														<a href="/api/v1/users/<%= ans.user %>">Username</a>
 													</li>
 													<li>
 														<span>Posted on: <%= new Date(ans.createdAt).toLocaleDateString() %></span>
 													</li>
+													<% if(user != undefined && user._id.toString() === ans.user.toString()) { %>
 													<button class="py-2 px-3">
 														<a href="/api/v1/answers/<%= ans._id %>/edit">Edit</a>
 													</button>
 													<button class="py-2 px-3">
 														<a href="/api/v1/answers/<%= ans._id %>/delete">Delete</a>
 													</button>
+													<% } %>
 													<!-- <li class="reports">
 														<a href="#" class="report">
 															<i class="ri-error-warning-line"></i>

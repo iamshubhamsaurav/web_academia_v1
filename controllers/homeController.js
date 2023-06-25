@@ -18,7 +18,7 @@ exports.getHome = catchAsync(async (req, res, next) => {
         path: 'user',
         select: 'name _id profilePicture'
     })
-    res.render('home/index', {questions, recentArticles})
+    res.render('home/index', {questions, recentArticles, user: req.user})
 })
 
 

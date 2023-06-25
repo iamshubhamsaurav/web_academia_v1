@@ -45,12 +45,13 @@
 
                     <div class="others-options">
                         <ul>
+                            <% if(user === undefined) { %>
                             <li>
                                 <a href="/api/v1/auth/login" class="active">
                                     Log in	
                                 </a>
                             </li>
-
+                            <% } else { %>
                             <li>
                                 <div class="dropdown" style="background-color: transparent;">
                                     <button type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent;">
@@ -79,6 +80,7 @@
                                     </ul>
                                 </div>
                             </li>
+                            <% } %>
 
                         </ul>
                     </div>

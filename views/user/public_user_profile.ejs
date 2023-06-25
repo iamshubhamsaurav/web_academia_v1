@@ -54,9 +54,6 @@
 										<h3><%= user.name %></h3>
 										<span>Member since  <%= new Date(user.createdAt.toISOString()).toLocaleDateString() %></span>
 										<br>
-										<div class="edit-btn">
-											<a href="/api/v1/users/<%= user._id %>/edit" class="default-btn">Edit profile</a>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -70,7 +67,7 @@
 
 							<div class="top-posts">
 								<div class="tab-content my-5" id="myTabContent">
-									<h3>Your Articles</h3>
+									<h3>Articles</h3>
 									<div class="tab-pane fade show active" id="view-all" role="tabpanel" aria-labelledby="view-all-tab">
 										<ul>
 											<% articles.forEach(article => { %>
@@ -78,17 +75,11 @@
 													<div class="top-posts-list">
 														<i class="ri-chat-2-fill"></i>
 														<span class="count">In: <%= article.branch %></span>
-														<button class="py-2 px-3">
-															<a href="/api/v1/articles/<%= article._id %>/edit">Edit</a>
-														</button>
-														<button class="py-2 px-3">
-															<a href="/api/v1/articles/<%= article._id %>/delete">Delete</a>
-														</button>
 														<span>
-															<a href="/api/v1/articles/<%= article._id %>">
+                                                            <a href="/api/v1/articles/<%= article._id %>">
                                                                 <%= article.title %>
                                                             </a>
-														</span>
+                                                        </span>
 													</div>
 													<p><span>Posted on <%= new Date(article.createdAt.toISOString()).toLocaleDateString() %></span></p>
 												</li>
@@ -100,35 +91,31 @@
 								</div>
 
 								<div class="tab-content my-5" id="myTabContent">
-									<h3>Your Questions</h3>
+									<h3>Questions</h3>
 									<div class="tab-pane fade show active" id="view-all" role="tabpanel" aria-labelledby="view-all-tab">
 										<ul>
-											<% questions.forEach(question => { %>
-												<li class="d-flex justify-content-between">
-													<div class="top-posts-list">
-														<i class="ri-chat-2-fill"></i>
-														<span class="count">In: <%= question.branch %></span>
-														<button class="py-2 px-3">
-															<a href="/api/v1/questions/<%= question._id %>/edit">Edit</a>
-														</button>
-														<button class="py-2 px-3">
-															<a href="/api/v1/questions/<%= question._id %>/delete">Delete</a>
-														</button>
-														<span>
-															<a href="/api/v1/questions/<%= question._id %>">
-																<%= question.title %>
-															</a>
-													</span>
-													</div>
-													<p><span>Posted on <%= new Date(question.createdAt.toISOString()).toLocaleDateString() %></span></p>
-												</li>
-											<% }) %>
+                                            <% if(questions.length > 0) { %>
+                                                <% questions.forEach(question => { %>
+                                                    <li class="d-flex justify-content-between">
+                                                        <div class="top-posts-list">
+                                                            <i class="ri-chat-2-fill"></i>
+                                                            <span class="count">In: <%= question.branch %></span>
+                                                            <span>
+                                                                <a href="/api/v1/questions/<%= question._id %>">
+                                                                    <%= question.title %>
+                                                                </a></span>
+                                                        </div>
+                                                        <p><span>Posted on <%= new Date(question.createdAt.toISOString()).toLocaleDateString() %></span></p>
+                                                    </li>
+                                                <% }) %>
+                                                <% } %>
+                                        </ul>
 									</div>
 								</div>
 							
 
 								<div class="tab-content my-5" id="myTabContent">
-									<h3>Your Answers</h3>
+									<h3>Answers</h3>
 									<div class="tab-pane fade show active" id="view-all" role="tabpanel" aria-labelledby="view-all-tab">
 										<ul>
 											<% answers.forEach(answer => { %>
@@ -136,13 +123,6 @@
 													<div class="top-posts-list">
 														<i class="ri-chat-2-fill"></i>
 														<span class="count">To: <a href="/api/v1/questions/<%= answer.question._id %>">View Question</a> </span>
-														
-														<button class="py-2 px-3">
-															<a href="/api/v1/answers/<%= answer._id %>/edit">Edit</a>
-														</button>
-														<button class="py-2 px-3">
-															<a href="/api/v1/answers/<%= answer._id %>/delete">Delete</a>
-														</button>
 														<span><%= answer.text.slice(0, 64) %></span>
 													</div>
 													<p><span>Posted on <%= new Date(answer.createdAt.toISOString()).toLocaleDateString() %></span></p>

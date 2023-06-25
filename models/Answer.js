@@ -14,6 +14,11 @@ const answerSchema = mongoose.Schema({
         ref: 'Question',
         required: [true, 'Please provide question']
     },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: [true, 'Please provide user']
+    },
 }, {timestamps: true} )
 
 

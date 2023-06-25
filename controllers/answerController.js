@@ -56,6 +56,7 @@ exports.getSingleAnswer = catchAsync(async (req, res, next) => {
 // @access      : Private
 exports.createAnswer = catchAsync(async (req, res, next) => {
     req.body.question = req.params.questionId
+    req.body.user = req.user._id
 
         // uploading the image
         if(req.files != null) {

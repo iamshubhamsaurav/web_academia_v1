@@ -5,6 +5,9 @@ const cloudinary = require('cloudinary')
 const mailHelper = require('../utils/mailHelper')
 const crypto = require('crypto')
 const cookieToken = require('../utils/cookieToken')
+const Article = require('../models/Article')
+const Question = require('../models/Question')
+const Answer = require('../models/Answer')
 
 
 exports.getSignup = catchAsync(async (req, res, next) => {
@@ -270,4 +273,25 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
     }
     res.cookie('token', token, options)
         .redirect(`/api/v1/users/${newUser._id}`)
+})
+
+exports.getUserProfile = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.user._id)
+    if(!user) {
+        return next(new AppError('Please login first before you continue', 404))
+    }
+    const articles = await Article.find({user: user._id})
+    const questions = await Question.find({user: user._id})
+    const answers = await Answer.find({user: user._id})
+
+    res.render('user/user_profile', {user, articles, questions, answers})
+})
+
+exports.getEditUserProfile = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.user._id)
+    if(!user) {
+        return next(new AppError('Please login first before you continue', 404))
+    }
+
+    res.render('user/edit_profile', {user})
 })

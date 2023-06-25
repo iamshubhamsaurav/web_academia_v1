@@ -7,16 +7,17 @@ const {
     updateAnswer, 
     deleteAnswer 
 } = require('../controllers/answerController')
+const { checkUserLoggedInStatus, isLoggedIn } = require('../middlewares/user')
 
 const router = express.Router({mergeParams: true})
 
 router.route('/')
-    .get(getAllAnswers)
-    .post(createAnswer)
+    .get(checkUserLoggedInStatus, getAllAnswers)
+    .post(isLoggedIn, createAnswer)
 
 router.route('/:id')
-    .get(getSingleAnswer)
-    .patch(updateAnswer)
-    .delete(deleteAnswer)
+    .get(checkUserLoggedInStatus, getSingleAnswer)
+    .patch(isLoggedIn, updateAnswer)
+    .delete(isLoggedIn, deleteAnswer)
 
 module.exports = router

@@ -28,13 +28,12 @@ const questionSchema = mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: "User",
         required: true,
-    },
-},
+    },  
+},{timestamps: true},
 {
     toJSON: {virtuals: true},
     toObject: {virtuals:  true}
-},
-{timestamps: true})
+},)
 
 questionSchema.pre('save', function(next) {
     this.slug = slugify(this.title, {lower: true})

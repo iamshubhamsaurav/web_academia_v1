@@ -55,7 +55,7 @@ exports.getCreateQuestion = catchAsync(async (req, res, next) => {
         path: 'user',
         select: 'name _id'
     })
-    res.render('questions/add_question', {recentArticles})
+    res.render('questions/add_question', {recentArticles, user: req.user})
 })
 
 // @route       : POST /api/v1/questions
@@ -97,7 +97,7 @@ exports.getEditQuestion = catchAsync(async (req, res, next) => {
         select: 'name _id profilePicture'
     })
 
-    res.render('questions/edit_question', {question, recentArticles})
+    res.render('questions/edit_question', {question, recentArticles, user: req.user})
 })
 
 // @route       : PATCH /api/v1/questions/:id

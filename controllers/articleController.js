@@ -53,7 +53,7 @@ exports.getCreateArticle = catchAsync(async (req, res, next) => {
         select: 'name _id'
     })
     
-    res.render('articles/publish_article', {recentArticles})
+    res.render('articles/publish_article', {recentArticles, user: req.user})
 })
 
 // @route       : POST /api/v1/articles
@@ -96,7 +96,7 @@ exports.getEditArticle = catchAsync(async (req, res, next) => {
         select: 'name _id'
     })
     const article = await Article.findById(req.params.id)
-    res.render('articles/edit_article', {article, recentArticles})
+    res.render('articles/edit_article', {article, recentArticles, user: req.user})
 })
 
 // @route       : PATCH /api/v1/articles/:id

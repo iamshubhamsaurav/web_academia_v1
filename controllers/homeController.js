@@ -23,22 +23,22 @@ exports.getHome = catchAsync(async (req, res, next) => {
 
 
 exports.getAbout = catchAsync(async (req, res, next) => {
-    res.render('home/about')
+    res.render('home/about', { user: req.user})
 })
 
 
 exports.getContact = catchAsync(async (req, res, next) => {
-    res.render('home/contact')
+    res.render('home/contact', { user: req.user})
 })
 
 exports.getFAQ = catchAsync(async (req, res, next) => {
-    res.render('home/faq')
+    res.render('home/faq', { user: req.user})
 })
 
 exports.getPrivacyPolicy = catchAsync(async (req, res, next) => {
-    res.render('home/privacy_policy')
+    res.render('home/privacy_policy', { user: req.user})
 })
 
 exports.getTermsAndConditions = catchAsync(async (req, res, next) => {
-    res.render('home/terms_conditions')
+    res.render('home/terms_conditions', { user: req.user})
 })

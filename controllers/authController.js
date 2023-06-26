@@ -11,7 +11,7 @@ const Answer = require('../models/Answer')
 
 
 exports.getSignup = catchAsync(async (req, res, next) => {
-    res.render('auth/sign_up')
+    res.render('auth/sign_up', {user: req.user})
 })
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -72,7 +72,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 })
 
 exports.getLogin = catchAsync(async (req, res, next) => {
-    res.render('auth/login')
+    res.render('auth/login', {user: req.user})
 })
 
 exports.login = catchAsync(async (req, res, next) => {

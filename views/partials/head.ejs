@@ -3,7 +3,7 @@
         <div class="container">
             <div class="mobile-responsive-menu">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="/api/v1/">
                         <img src="/assets/images/logo.png" alt="logo">
                     </a>
                 </div>
@@ -55,8 +55,8 @@
                             <li>
                                 <div class="dropdown" style="background-color: transparent;">
                                     <button type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent;">
-                                        <img src="/assets/images/user/user-48.jpg" alt="Image" style="border-radius: 50%; width: 48px; height: 48px;">
-                                        <span style="color: aliceblue;">Username</span>
+                                        <img src="<%= user.profilePicture.secure_url %>" alt="Image" style="border-radius: 50%; width: 48px; height: 48px;">
+                                        <span style="color: aliceblue;"><%= user.name %></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                         <li>

@@ -2,6 +2,7 @@ const Article = require('../models/Article')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const { countTotalDocuments } = require('../utils/countTotalDocuments')
+const { findRecentArticles } = require('../utils/findRecentArticles')
 const cloudinary = require('cloudinary').v2
 
 // @route       : GET /api/v1/articles
@@ -37,10 +38,7 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))
     }
 
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
-        path: 'user',
-        select: 'name _id'
-    })
+    const recentArticles = await findRecentArticles()
 
     const count = await countTotalDocuments()
     
@@ -51,10 +49,7 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
 // @desc        : Get Show Create Article Form
 // @access      : Private
 exports.getCreateArticle = catchAsync(async (req, res, next) => {
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
-        path: 'user',
-        select: 'name _id'
-    })
+    const recentArticles = await findRecentArticles()
 
     const count = await countTotalDocuments()
     
@@ -96,10 +91,8 @@ exports.createArticle = catchAsync(async (req, res, next) => {
 // @desc        : Get Edit Article Form
 // @access      : Private
 exports.getEditArticle = catchAsync(async (req, res, next) => {
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
-        path: 'user',
-        select: 'name _id'
-    })
+    const recentArticles = await findRecentArticles()
+
     const article = await Article.findById(req.params.id)
     const count = await countTotalDocuments()
     res.render('articles/edit_article', {article, recentArticles, user: req.user, count})

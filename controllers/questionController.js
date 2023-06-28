@@ -4,6 +4,7 @@ const AppError = require('../utils/appError')
 const Answer = require('../models/Answer')
 const Article = require('../models/Article')
 const { countTotalDocuments } = require('../utils/countTotalDocuments')
+const { findRecentArticles } = require('../utils/findRecentArticles')
 const cloudinary = require('cloudinary').v2
 
 // @route       : GET /api/v1/questions
@@ -38,25 +39,15 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
     }
 
-    // res.status(200).json({
-    //     success: true,
-    //     question
-    // })
+    const recentArticles = await findRecentArticles()
 
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
-        path: 'user',
-        select: 'name _id'
-    })
-    // console.log(req.user);
     const count = await countTotalDocuments()
     res.render('questions/question_details', {question, recentArticles, user: req.user, count})
 })
 
 exports.getCreateQuestion = catchAsync(async (req, res, next) => {
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
-        path: 'user',
-        select: 'name _id'
-    })
+    const recentArticles = await findRecentArticles()
+
     const count = await countTotalDocuments()
     res.render('questions/add_question', {recentArticles, user: req.user, count})
 })
@@ -95,10 +86,7 @@ exports.getEditQuestion = catchAsync(async (req, res, next) => {
     if(!question) {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
     }
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
-        path: 'user',
-        select: 'name _id profilePicture'
-    })
+    const recentArticles = await findRecentArticles()
 
     const count = await countTotalDocuments()
     res.render('questions/edit_question', {question, recentArticles, user: req.user, count})

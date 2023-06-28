@@ -2,6 +2,7 @@ const catchAsync = require("../utils/catchAsync")
 const Question = require('../models/Question')
 const Article = require("../models/Article")
 const { countTotalDocuments } = require("../utils/countTotalDocuments")
+const { findRecentArticles } = require("../utils/findRecentArticles")
 
 
 exports.getHome = catchAsync(async (req, res, next) => {
@@ -15,10 +16,7 @@ exports.getHome = catchAsync(async (req, res, next) => {
     // questions.forEach(question => {
     //     console.log(new Date(question.answers.slice(-1)[0].createdAt).getHours())
     // });
-    const recentArticles = await Article.find().sort({ createdAt: -1 }).limit(5).populate({
-        path: 'user',
-        select: 'name _id profilePicture'
-    })
+    const recentArticles = await findRecentArticles()
     const count = await countTotalDocuments()
     res.render('home/index', {questions, recentArticles, user: req.user, count})
 })

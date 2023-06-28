@@ -102,10 +102,7 @@ exports.logout = catchAsync(async (req, res, next) => {
         httpOnly: true
     })
 
-    res.status(200).json({
-        success: true,
-        message: "Logout successfull..."
-    })
+    res.status(200).redirect('/api/v1/')
 })
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {

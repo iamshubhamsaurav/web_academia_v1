@@ -109,60 +109,10 @@
 									Publish an article
 								</a>
 							</div>
-
-							<div class="right-siderbar-common">
-								<div class="answer-count">
-									<ul class="d-flex flex-wrap">
-										<li>
-											<span>Questions</span>
-											<span class="count">435</span>
-										</li>
-										<li>
-											<span>Answers</span>
-											<span class="count">435</span>
-										</li>
-										<li>
-											<span>Best answers</span>
-											<span class="count">324</span>
-										</li>
-										<li>
-											<span>Users</span>
-											<span class="count">2K</span>
-										</li>
-										<li>
-											<span>Posts</span>
-											<span class="count">852</span>
-										</li>
-										<li>
-											<span>Comments</span>
-											<span class="count">57</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="right-siderbar-common">
-								<div class="recent-post">
-									<h3>
-										<i class="ri-discuss-line"></i>
-										Recent Articles
-									</h3>
-
-									<ul>
-										<% recentArticles.forEach(element => { %>
-											<li>
-											<a href="/api/v1/articles/<%= element._id %>">
-												<%= element.title %>
-											</a>
-											<p>on <%= new Date(element.createdAt.toISOString()).toLocaleDateString() %>
-												by <a href="#"><%= element.user.name %></a></p>
-										</li>
-										<% }) %>
-										
-										
-									</ul>
-								</div>
-							</div>
+							
+							<%- include('../partials/count_documents', {count}) %>
+							<%- include('../partials/recent_articles', {recentArticles}) %>
+							
 						</div>
 					</div>
 				</div>

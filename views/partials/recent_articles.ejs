@@ -1,0 +1,22 @@
+<div class="right-siderbar-common">
+    <div class="recent-post">
+        <h3>
+            <i class="ri-discuss-line"></i>
+            Recent Articles
+        </h3>
+
+        <ul>
+            <% recentArticles.forEach(element => { %>
+                <li>
+                <a href="/api/v1/articles/<%= element._id %>">
+                    <%= element.title %>
+                </a>
+                <p>on <%= new Date(element.createdAt.toISOString()).toLocaleDateString() %>
+                    by <a href="#"><%=element.user.name%></a></p>
+            </li>
+            <% }) %>
+            
+            
+        </ul>
+    </div>
+</div>

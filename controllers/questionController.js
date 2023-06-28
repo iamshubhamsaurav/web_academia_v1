@@ -3,6 +3,7 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const Answer = require('../models/Answer')
 const Article = require('../models/Article')
+const { countTotalDocuments } = require('../utils/countTotalDocuments')
 const cloudinary = require('cloudinary').v2
 
 // @route       : GET /api/v1/questions
@@ -47,7 +48,8 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
         select: 'name _id'
     })
     // console.log(req.user);
-    res.render('questions/question_details', {question, recentArticles, user: req.user})
+    const count = await countTotalDocuments()
+    res.render('questions/question_details', {question, recentArticles, user: req.user, count})
 })
 
 exports.getCreateQuestion = catchAsync(async (req, res, next) => {
@@ -55,7 +57,8 @@ exports.getCreateQuestion = catchAsync(async (req, res, next) => {
         path: 'user',
         select: 'name _id'
     })
-    res.render('questions/add_question', {recentArticles, user: req.user})
+    const count = await countTotalDocuments()
+    res.render('questions/add_question', {recentArticles, user: req.user, count})
 })
 
 // @route       : POST /api/v1/questions
@@ -97,7 +100,8 @@ exports.getEditQuestion = catchAsync(async (req, res, next) => {
         select: 'name _id profilePicture'
     })
 
-    res.render('questions/edit_question', {question, recentArticles, user: req.user})
+    const count = await countTotalDocuments()
+    res.render('questions/edit_question', {question, recentArticles, user: req.user, count})
 })
 
 // @route       : PATCH /api/v1/questions/:id

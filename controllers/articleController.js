@@ -1,6 +1,7 @@
 const Article = require('../models/Article')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
+const { countTotalDocuments } = require('../utils/countTotalDocuments')
 const cloudinary = require('cloudinary').v2
 
 // @route       : GET /api/v1/articles
@@ -40,8 +41,10 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
         path: 'user',
         select: 'name _id'
     })
+
+    const count = await countTotalDocuments()
     
-    res.render('articles/articles_details', {article, recentArticles, user: req.user})
+    res.render('articles/articles_details', {article, recentArticles, user: req.user, count})
 })
 
 // @route       : GET /api/v1/articles/add
@@ -52,8 +55,10 @@ exports.getCreateArticle = catchAsync(async (req, res, next) => {
         path: 'user',
         select: 'name _id'
     })
+
+    const count = await countTotalDocuments()
     
-    res.render('articles/publish_article', {recentArticles, user: req.user})
+    res.render('articles/publish_article', {recentArticles, user: req.user, count})
 })
 
 // @route       : POST /api/v1/articles
@@ -96,7 +101,8 @@ exports.getEditArticle = catchAsync(async (req, res, next) => {
         select: 'name _id'
     })
     const article = await Article.findById(req.params.id)
-    res.render('articles/edit_article', {article, recentArticles, user: req.user})
+    const count = await countTotalDocuments()
+    res.render('articles/edit_article', {article, recentArticles, user: req.user, count})
 })
 
 // @route       : PATCH /api/v1/articles/:id

@@ -38,7 +38,7 @@
 		<!-- End Preloader Area -->
 		
 		<!-- Start Navbar Area --> 
-		<%- include('../partials/head') %>
+		<%- include('../partials/head', {user}) %>
 		<!-- End Navbar Area -->
 
 		<!-- Start Mail Content Area -->
@@ -49,10 +49,10 @@
 						<div class="user-profile-area">
 							<div class="profile-content d-flex justify-content-center align-items-center">
 								<div class="profile-img">
-									<img src="<%= user.profilePicture.secure_url %>" alt="Image" height="200" width="200">
+									<img src="<%= fetchedUser.profilePicture.secure_url %>" alt="Image" height="200" width="200">
 									<div>
-										<h3><%= user.name %></h3>
-										<span>Member since  <%= new Date(user.createdAt.toISOString()).toLocaleDateString() %></span>
+										<h3><%= fetchedUser.name %></h3>
+										<span>Member since  <%= new Date(fetchedUser.createdAt.toISOString()).toLocaleDateString() %></span>
 										<br>
 									</div>
 								</div>
@@ -60,9 +60,9 @@
 
 							<div class="about my-5" align="center">
 								<h3>About</h3>
-								Register No: <%= user.registerNo %><br>
-								Semester: <%= user.sem %><br>
-								Course: <%= user.course %></p>
+								Register No: <%= fetchedUser.registerNo %><br>
+								Semester: <%= fetchedUser.sem %><br>
+								Course: <%= fetchedUser.course %></p>
 							</div>
 
 							<div class="top-posts">

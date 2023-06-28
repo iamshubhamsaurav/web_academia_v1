@@ -8,13 +8,13 @@ const Answer = require('../models/Answer');
 
 
 exports.getPublicUserProfile = catchAsync(async (req, res, next) => {
-    const user = await User.findById(req.params.id)
-    if(!user) {
+    const fetchedUser = await User.findById(req.params.id)
+    if(!fetchedUser) {
         return next(new AppError('Please provide correct user id', 404))
     }
-    const articles = await Article.find({user: user._id})
-    const questions = await Question.find({user: user._id})
-    const answers = await Answer.find({user: user._id}).populate('question')
+    const articles = await Article.find({user: fetchedUser._id})
+    const questions = await Question.find({user: fetchedUser._id})
+    const answers = await Answer.find({user: fetchedUser._id}).populate('question')
 
-    res.render('user/public_user_profile', {user, articles, questions, answers})
+    res.render('user/public_user_profile', {fetchedUser, articles, questions, answers, user: req.user})
 })

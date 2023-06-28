@@ -12,7 +12,7 @@
                     <%= element.title %>
                 </a>
                 <p>on <%= new Date(element.createdAt.toISOString()).toLocaleDateString() %>
-                    by <a href="#"><%=element.user.name%></a></p>
+                    by <a href="/api/v1/users/<%= element.user._id %>"><%=element.user.name%></a></p>
             </li>
             <% }) %>
             

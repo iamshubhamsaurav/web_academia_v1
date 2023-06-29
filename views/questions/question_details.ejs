@@ -83,7 +83,7 @@
 								<div class="question-details-content like-dislike">
 									<div class="d-flex">
 										<div class="link-unlike flex-shrink-0">
-											<a href="#">
+											<a href="/api/v1/users/<%= question.user._id %>">
 												<img src="<%= question.user.profilePicture.secure_url %>" alt="Image" height="50" width="50">
 											</a>
 										</div>
@@ -91,7 +91,7 @@
 										<div class="flex-grow-1 ms-3">
 											<ul class="graphic-design">
 												<li>
-													<a href="#"><%= question.user.name %></a>
+													<a href="/api/v1/users/<%= question.user._id %>"><%= question.user.name %></a>
 												</li>
 												<li>
 													<% if(question.answers.length > 0) { %>
@@ -165,15 +165,15 @@
 									<div class="answer-question-details like-dislike">
 										<div class="d-flex">
 											<div class="link-unlike flex-shrink-0">
-												<a href="#">
-													<img src="/assets/images/user/user-13.jpg" alt="Image">
+												<a href="/api/v1/users/<%= ans.user._id %>">
+													<img src="<%= ans.user.profilePicture.secure_url %>" alt="Image"  style="border-radius: 50%; width: 48px; height: 48px;">
 												</a>
 											</div>
 	
 											<div class="flex-grow-1 ms-3">
 												<ul class="latest-answer-list">
 													<li>
-														<a href="/api/v1/users/<%= ans.user %>">Username</a>
+														<a href="/api/v1/users/<%= ans.user._id %>"><%= ans.user.name %></a>
 													</li>
 													<li>
 														<span>Posted on: <%= new Date(ans.createdAt).toLocaleDateString() %></span>
@@ -193,6 +193,9 @@
 														</a>
 													</li> -->
 												</ul>
+												<img src="<%= ans.coverImage.secure_url %>" alt="Cover Image">
+												<br/><br/>
+												<hr>
 												<p><%= ans.text  %></p>
 											</div>
 										</div>

@@ -30,7 +30,7 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
 // @desc        : Get Single Question
 // @access      : Public
 exports.getSingleQuestion = catchAsync(async (req, res, next) => {
-    const question = await Question.findById(req.params.id).populate('answers').populate({
+    const question = await Question.findById(req.params.id).populate({
         path: 'user',
         select: 'name _id profilePicture'
     })
@@ -38,6 +38,12 @@ exports.getSingleQuestion = catchAsync(async (req, res, next) => {
     if(!question) {
         return next(new AppError(`Question with the id: ${req.params.id} not found.`, 404))
     }
+
+    const answers = await Answer.find({question: question._id}).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
+    })
+    question.answers = answers
 
     const recentArticles = await findRecentArticles()
 

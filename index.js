@@ -45,6 +45,7 @@ const questionRouter = require('./routes/questionRoute')
 const answerRouter = require('./routes/answerRoute')
 const authRouter = require('./routes/authRoute')
 const userRouter = require('./routes/userRoute')
+const commentRouter = require('./routes/commentRoute')
 
 //routers
 // Home routes
@@ -55,6 +56,7 @@ app.use('/api/v1/questions', questionRouter)
 app.use('/api/v1/answers', answerRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/comments', commentRouter)
 
 
 app.all('*', (req, res, next) => {

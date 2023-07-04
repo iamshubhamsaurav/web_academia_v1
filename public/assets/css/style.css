@@ -4833,6 +4833,15 @@ Video wave Style*/
   background-color: rgba(22, 5, 107, 0.8);
 }
 
+.desktop-nav .navbar .others-options ul li .dropdown .dropdown-menu li a {
+  background-color: transparent;
+  color: #666666;
+  display: block;
+  border: none;
+  padding: 5px 0;
+  margin-left: 10px;
+}
+
 @-webkit-keyframes ripple {
   0%, 35% {
     -webkit-transform: scale(0);

@@ -9,9 +9,14 @@ const {
     getCreateArticle,
     getEditArticle
 } = require('../controllers/articleController')
+
+const commentRouter = require('./commentRoute')
+
 const { isLoggedIn, checkUserLoggedInStatus } = require('../middlewares/user')
 
 const router = express.Router()
+
+router.use('/:articleId/comments/', commentRouter)
 
 router.route('/')
     .get(checkUserLoggedInStatus, getAllArticles)

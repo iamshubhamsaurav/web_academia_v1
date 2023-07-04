@@ -1,4 +1,5 @@
 const Article = require('../models/Article')
+const Comment = require('../models/Comment')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const { countTotalDocuments } = require('../utils/countTotalDocuments')
@@ -37,6 +38,14 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
     if(!article) {
         return next(new AppError(`Article with the id: ${req.params.id} not found.`, 404))
     }
+
+    const comments = await Comment.find({article: article._id}).populate({
+        path: 'user',
+        select: 'name _id profilePicture'
+    })
+
+    article.comments = comments
+    console.log(comments)
 
     const recentArticles = await findRecentArticles()
 

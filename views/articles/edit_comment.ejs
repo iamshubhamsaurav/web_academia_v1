@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zxx">
+    <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Links Of CSS File -->
+		<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="/assets/css/flaticon.css">
+		<link rel="stylesheet" href="/assets/css/remixicon.css">
+		<link rel="stylesheet" href="/assets/css/meanmenu.min.css">
+		<link rel="stylesheet" href="/assets/css/animate.min.css">
+		<link rel="stylesheet" href="/assets/css/metismenu.min.css">
+		<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/assets/css/editor.css">
+		<link rel="stylesheet" href="/assets/css/style.css">
+		<link rel="stylesheet" href="/assets/css/responsive.css">
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/assets/images/favicon.png">
+		<!-- Title -->
+		<title>The Web Academia</title>
+    </head>
+
+    <body>
+		<!-- Start Preloader Area -->
+		<div class="preloader" id="loader-style">
+			<div class="preloader-wrap">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<!-- End Preloader Area -->
+		
+		<!-- Start Navbar Area --> 
+		<%- include('../partials/head') %>
+		<!-- End Navbar Area -->
+
+		<!-- Start Mail Content Area -->
+		<div class="main-content-area ptb-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="middull-content">
+							<form class="your-answer-form" method="post" action="/api/v1/comments/<%= comment._id %>/edit">
+								<div class="form-group">
+									<h3>Edit Your Comment</h3>
+								</div>
+								<div class="form-group">
+									<label>Body</label>
+									<textarea name="text" class="form-control" id="message" rows="6" placeholder="Write your comment"><%= comment.text %></textarea>
+								</div>
+								<div class="form-group">
+									<div style="display: flex; justify-content: space-between;">
+										<button type="cancel" class="btn" style="background-color: #f2f2f2; color: #333; padding: 10px 20px; margin-right: 10px;"><a href="/api/v1/articles/<%= comment.article %>">Cancel</a></button>
+										<button type="submit" class="btn" style="background-color: #f2f2f2; color: #333; padding: 10px 20px;"><a>Save</a></button>
+									</div>
+								</div>
+					
+							</form>
+						</div>
+					</div>
+
+					<div class="col-lg-1">
+					</div>
+
+					<div class="col-lg-3">
+						<div class="right-siderbar">
+							<div class="right-siderbar-common">
+								<a href="/api/v1/questions/add" class="default-btn">
+									Ask a question
+								</a>
+							</div>
+
+							<div class="right-siderbar-common">
+								<a href="/api/v1/articles/add" class="default-btn">
+									Publish an article
+								</a>
+							</div>
+
+							<%- include('../partials/count_documents', {count}) %>
+							<%- include('../partials/recent_articles', {recentArticles}) %>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Mail Content Area -->
+
+		<!-- Start Footer Area -->
+		<%- include('../partials/footer') %>
+		<!-- End Footer Area -->
+
+		<!-- Start Go Top Area -->
+		<div class="go-top">
+			<i class="ri-arrow-up-s-fill"></i>
+			<i class="ri-arrow-up-s-fill"></i>
+		</div>
+		<!-- End Go Top Area -->
+
+        <!-- Links of JS File -->
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.bundle.min.js"></script>
+		<script src="/assets/js/meanmenu.min.js"></script>
+		<script src="/assets/js/owl.carousel.min.js"></script>
+		<script src="/assets/js/form-validator.min.js"></script>
+		<script src="/assets/js/contact-form-script.js"></script>
+		<script src="/assets/js/ajaxchimp.min.js"></script>
+		<script src="/assets/js/metismenu.js"></script>
+		<script src="/assets/js/editor.js"></script>
+		<script src="/assets/js/like-dislike.min.js"></script>
+		<script src="/assets/js/custom.js"></script>
+    </body>
+</html>

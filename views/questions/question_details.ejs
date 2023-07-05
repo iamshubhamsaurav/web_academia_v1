@@ -178,7 +178,7 @@
 													<li>
 														<span>Posted on: <%= new Date(ans.createdAt).toLocaleDateString() %></span>
 													</li>
-													<% if(user != undefined && user._id.toString() === ans.user.toString()) { %>
+													<% if(user != undefined && user._id.toString() === ans.user._id.toString()) { %>
 													<button class="py-2 px-3">
 														<a href="/api/v1/answers/<%= ans._id %>/edit">Edit</a>
 													</button>
@@ -186,20 +186,15 @@
 														<a href="/api/v1/answers/<%= ans._id %>/delete">Delete</a>
 													</button>
 													<% } %>
-													<!-- <li class="reports">
-														<a href="#" class="report">
-															<i class="ri-error-warning-line"></i>
-															Report
-														</a>
-													</li> -->
 												</ul>
 												<img src="<%= ans.coverImage.secure_url %>" alt="Cover Image">
 												<br/><br/>
-												<hr>
+												<!-- <hr> -->
 												<p><%= ans.text  %></p>
 											</div>
 										</div>
 									</div>
+									<hr>
 								<% }) %>
 								
 								<% } %>

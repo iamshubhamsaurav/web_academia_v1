@@ -2,6 +2,8 @@ const Answer = require('../models/Answer')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const Question = require('../models/Question')
+const { findRecentArticles } = require('../utils/findRecentArticles')
+const { countTotalDocuments } = require('../utils/countTotalDocuments')
 const cloudinary = require('cloudinary').v2
 
 // @route       : GET /api/v1/answers
@@ -82,6 +84,27 @@ exports.createAnswer = catchAsync(async (req, res, next) => {
     // })
 })
 
+// @route       : GET /api/v1/answers/:id
+// @desc        : Update Answer
+// @access      : Private
+exports.getUpdateAnswer = catchAsync(async (req, res, next) => {
+    const answer = await Answer.findById(req.params.id)
+
+    if(!answer) {
+        return next(new AppError(`Answer with the id: ${req.params.id} not found.`, 404))
+    }
+
+    if(answer.user.toString() !== req.user._id.toString()) {
+        return next(new AppError(`You are not authorized`, 404))
+    }
+
+    const recentArticles = await findRecentArticles()
+
+    const count = await countTotalDocuments()
+
+    res.render('questions/edit_answer', { answer, user: req.user, recentArticles, count })
+})
+
 // @route       : PATCH /api/v1/answers/:id
 // @desc        : Update Answer
 // @access      : Private
@@ -92,7 +115,7 @@ exports.updateAnswer = catchAsync(async (req, res, next) => {
         return next(new AppError(`Answer with the id: ${req.params.id} not found.`, 404))
     }
 
-    if(req.files.coverImage) {
+    if(req.files) {
         let file = req.files.coverImage
         
         // first delete the existing image
@@ -115,10 +138,7 @@ exports.updateAnswer = catchAsync(async (req, res, next) => {
         runValidators: true
     })
     
-    res.status(200).json({
-        success: true,
-        answer: updatedAnswer
-    })
+    res.redirect(`/api/v1/questions/${answer.question}`)
 })
 
 
@@ -132,6 +152,10 @@ exports.deleteAnswer = catchAsync(async (req, res, next) => {
         return next(new AppError(`Answer with the id: ${req.params.id} not found.`, 404))
     }
 
+    if(answer.user.toString() !== req.user._id.toString()) {
+        return next(new AppError(`You are not authorized`, 400))
+    }
+
     // deleting the coverImage of answer before deleting the answer
     const imageId = answer.coverImage.public_id
     if(imageId && imageId !== '') {
@@ -140,9 +164,6 @@ exports.deleteAnswer = catchAsync(async (req, res, next) => {
 
     await Answer.findByIdAndDelete(answer._id)
 
-    res.status(200).json({
-        success: true,
-        message: 'Answer has been deleted.'
-    })
+    res.redirect(`/api/v1/questions/${answer.question}/`)
 })
 

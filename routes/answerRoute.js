@@ -5,7 +5,8 @@ const {
     createAnswer,
     getSingleAnswer, 
     updateAnswer, 
-    deleteAnswer 
+    deleteAnswer, 
+    getUpdateAnswer
 } = require('../controllers/answerController')
 const { checkUserLoggedInStatus, isLoggedIn } = require('../middlewares/user')
 
@@ -18,7 +19,8 @@ router.route('/')
 router.route('/:id')
     .get(checkUserLoggedInStatus, getSingleAnswer)
 
-router.post('/:id/edit',isLoggedIn, updateAnswer)    
+router.get('/:id/edit',isLoggedIn, getUpdateAnswer)
+router.post('/:id/edit',isLoggedIn, updateAnswer)
 router.get('/:id/delete',isLoggedIn, deleteAnswer)
 
 module.exports = router

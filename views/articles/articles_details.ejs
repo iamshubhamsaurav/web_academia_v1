@@ -151,12 +151,12 @@
 												<li>
 													<span>Posted on: <%= new Date(comment.createdAt).toLocaleDateString() %></span>
 												</li>
-												<% if(user != undefined && user._id.toString() === comment.user.toString()) { %>
+												<% if(user != undefined && user._id.toString() === comment.user._id.toString()) { %>
 												<button class="py-2 px-3">
-													<a href="/api/v1/answers/<%= comment._id %>/edit">Edit</a>
+													<a href="/api/v1/comments/<%= comment._id %>/edit">Edit</a>
 												</button>
 												<button class="py-2 px-3">
-													<a href="/api/v1/answers/<%= comment._id %>/delete">Delete</a>
+													<a href="/api/v1/comments/<%= comment._id %>/delete">Delete</a>
 												</button>
 												<% } %>
 												<!-- <li class="reports">

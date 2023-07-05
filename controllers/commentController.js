@@ -25,11 +25,11 @@ exports.updateComment = catchAsync(async (req, res, next) => {
 })
 
 exports.deleteComment = catchAsync(async (req, res, next) => {
-    const comment = await Comment.findById(req.params.id)
+    const comment = await Comment.findById(req.params.id).populate('user')
     if(!comment) {
         return next(new AppError('Comment not found', 404))
     }
-    if(req.user._id !== comment.user) {
+    if(req.user._id.toString() !== comment.user._id.toString()) {
         return next(new AppError('You are not authorized', 404))
     }
     await Comment.findByIdAndDelete(req.params.id)

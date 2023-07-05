@@ -45,7 +45,7 @@ exports.getSingleArticle = catchAsync(async (req, res, next) => {
     })
 
     article.comments = comments
-    console.log(comments)
+    // console.log(comments)
 
     const recentArticles = await findRecentArticles()
 

@@ -49,21 +49,26 @@
 						<div class="user-profile-area">
 							<div class="profile-content d-flex justify-content-center align-items-center">
 								<div class="profile-img">
-									<img src="<%= fetchedUser.profilePicture.secure_url %>" alt="Image" height="200" width="200">
+									<img src="<%= fetchedUser.profilePicture.secure_url %>" style="border-radius: 50%;" alt="Image" height="200" width="200">
 									<div>
 										<h3><%= fetchedUser.name %></h3>
 										<span>Member since  <%= new Date(fetchedUser.createdAt.toISOString()).toLocaleDateString() %></span>
-										<br>
+										<!-- <br> -->
+										<hr>
+										Register No: <%= fetchedUser.registerNo %><br>
+										Semester: <%= fetchedUser.sem %><br>
+										Course: <%= fetchedUser.course %></p>
 									</div>
 								</div>
 							</div>
-
+							
+							<!-- <br><br>
 							<div class="about my-5" align="center">
 								<h3>About</h3>
 								Register No: <%= fetchedUser.registerNo %><br>
 								Semester: <%= fetchedUser.sem %><br>
 								Course: <%= fetchedUser.course %></p>
-							</div>
+							</div> -->
 
 							<div class="top-posts">
 								<div class="tab-content my-5" id="myTabContent">

@@ -226,7 +226,7 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
 
     const {name, email, registerNo, sem, course} = req.body
 
-    const user = await User.findById(userId)
+    let user = await User.findById(userId)
 
     if(!user) {
         return next(new AppError("User does not exist", 404))
@@ -237,7 +237,7 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
     }
 
     let uploadedProfilePicture;
-    if(req.files.profilePicture != null) {
+    if(req.files) {
         if(user.profilePicture.public_id != undefined) {
             await cloudinary.v2.uploader.destroy(user.profilePicture.public_id)
         }
@@ -250,17 +250,21 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
             height: 150,
             crop: "scale"
         })
-    }
-    
-    let profilePicture = {
-        secure_url: uploadedProfilePicture.secure_url,
-        public_id: uploadedProfilePicture.public_id
+        user.profilePicture = {
+            secure_url: uploadedProfilePicture.secure_url,
+            public_id: uploadedProfilePicture.public_id
+        }
     }
 
-    const newUser = await User.findByIdAndUpdate(userId, {
-        name, email, registerNo, sem, course, profilePicture
-    })
-    const token = newUser.getJwtToken()
+    user.name = name
+    user.email = email
+    user.registerNo = registerNo
+    user.sem = sem
+    user.course = course
+
+    await user.save()
+    
+    const token = user.getJwtToken()
 
     const options = {
         expires: new Date(
@@ -269,7 +273,7 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
         httpOnly: true
     }
     res.cookie('token', token, options)
-        .redirect(`/api/v1/users/${newUser._id}`)
+        .redirect(`/api/v1/auth/${user._id}`)
 })
 
 exports.getUserProfile = catchAsync(async (req, res, next) => {

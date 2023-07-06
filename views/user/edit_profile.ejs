@@ -49,7 +49,7 @@
 						<div class="edit-profile-area">
 							<div class="profile-content d-flex justify-content-center align-items-center">
 								<div class="profile-img">
-									<img src="<%= user.profilePicture.secure_url %>" alt="Image">
+									<img src="<%= user.profilePicture.secure_url %>" style="border-radius: 50%;" alt="Image">
 									<div>
 										<h3><%= user.name %></h3>
 										<span>Member since  <%= new Date(user.createdAt.toISOString()).toLocaleDateString() %></span>
@@ -68,7 +68,7 @@
 
 											<form class="edeite-content" method="post" action="/api/v1/auth/updateProfile" enctype="multipart/form-data">
 												<div class="information d-flex align-items-center">
-													<img src="<%= user.profilePicture.secure_url %>" alt="Image">
+													<img src="<%= user.profilePicture.secure_url %>" style="border-radius: 50%;" alt="Image">
 													
 													<div class="file-upload-account-info">
 														<input type="file" name="profilePicture" id="profilePicture" class="form-control">
@@ -76,7 +76,7 @@
 															<i class="ri-link"></i>
 															Upload Photo
 														</label>
-														<span>Maximum file size: 10 MB.</span>
+														<span>Maximum file size: 2 MB.</span>
 													</div>
 												</div>
 												<div class="form-group">

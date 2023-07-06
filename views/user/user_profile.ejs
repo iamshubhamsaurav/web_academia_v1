@@ -49,7 +49,7 @@
 						<div class="user-profile-area">
 							<div class="profile-content d-flex justify-content-center align-items-center">
 								<div class="profile-img">
-									<img src="<%= user.profilePicture.secure_url %>" alt="Image" height="200" width="200">
+									<img src="<%= user.profilePicture.secure_url %>" style="border-radius: 50%;" alt="Image" height="200" width="200">
 									<div>
 										<h3><%= user.name %></h3>
 										<span>Member since  <%= new Date(user.createdAt.toISOString()).toLocaleDateString() %></span>

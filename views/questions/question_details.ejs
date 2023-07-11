@@ -187,7 +187,9 @@
 													</button>
 													<% } %>
 												</ul>
-												<img src="<%= ans.coverImage.secure_url %>" alt="Cover Image">
+												<% if(ans.coverImage.secure_url !== undefined) { %>
+													<img src="<%= ans.coverImage.secure_url %>" alt="Cover Image">
+												<% } %>
 												<br/><br/>
 												<!-- <hr> -->
 												<p><%= ans.text  %></p>

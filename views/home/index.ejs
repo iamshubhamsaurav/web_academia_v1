@@ -117,7 +117,11 @@
 														</li>
 													</ul>
 													<% if(question.description) { %>
-														<p><%= question.description %></p>
+														<% if(question.description.length < 108) { %>
+															<%= question.description %>
+														<% } else { %>
+														 <p><%= question.description.substring(0,108) %>...</p>
+														 <% } %>
 													<% } else { %>
 														<p>No Description Available.</p>
 													<% } %>
